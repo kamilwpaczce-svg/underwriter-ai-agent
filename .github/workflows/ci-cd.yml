@@ -117,7 +117,8 @@ jobs:
 
   wdrozenie:
     needs: testy
-    if: github.ref == 'refs/heads/main'
+    # Pomijane, gdy repo nie ma zmiennych Azure (np. publiczna kopia bez subskrypcji).
+    if: github.ref == 'refs/heads/main' && vars.AZURE_CLIENT_ID != ''
     runs-on: ubuntu-latest
     permissions:
       id-token: write
