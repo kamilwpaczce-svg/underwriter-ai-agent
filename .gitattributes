@@ -1,0 +1,7 @@
+# Skrypty i pliki uruchamiane w kontenerach Linux - zawsze LF (CRLF w start_api.sh = "/bin/sh^M: not found").
+*.sh text eol=lf
+Dockerfile text eol=lf
+
+# Terraform: stan w backendzie ma LF, heredoki w *.tf przy autocrlf=true mialy CRLF w kopii roboczej
+# i plan pokazywal falszywe "1 to change" (patrz docs/MLOPS.md, Kolejnosc wdrozenia).
+*.tf text eol=lf

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Zgłoszenie szkody</title>
+<style>
+  body { font-family: "Arial", sans-serif; font-size: 13px; color: #1a1a1a; margin: 30px; }
+  .naglowek { border-bottom: 3px solid #7a1f1f; padding-bottom: 10px; margin-bottom: 18px; }
+  .naglowek .nazwa-tu { font-size: 20px; font-weight: bold; color: #7a1f1f; }
+  .naglowek .podtytul { font-size: 14px; margin-top: 4px; }
+  .meta { float: right; text-align: right; font-size: 12px; }
+  table.dane { width: 100%; border-collapse: collapse; margin-bottom: 14px; }
+  table.dane td { border: 1px solid #999; padding: 5px 8px; vertical-align: top; }
+  table.dane td.etykieta { background: #f6eeee; width: 38%; font-weight: bold; }
+  h2.sekcja { background: #7a1f1f; color: white; font-size: 13px; padding: 5px 10px; margin: 18px 0 6px 0; }
+  .opis { border: 1px solid #999; padding: 8px; min-height: 40px; white-space: pre-wrap; }
+  .podpis { margin-top: 30px; font-size: 12px; }
+  .podpis .linia { border-top: 1px solid #333; width: 260px; margin-top: 36px; padding-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="naglowek">
+    <div class="meta">Numer zgłoszenia: $numer_zgloszenia<br>Data zgłoszenia: $data_zgloszenia_tekst</div>
+    <div class="nazwa-tu">Mazowiecka Mutual TU S.A.</div>
+    <div class="podtytul">Zgłoszenie szkody w mieniu - ubezpieczenie od ognia i innych zdarzeń losowych</div>
+  </div>
+
+  <h2 class="sekcja">1. Ubezpieczony</h2>
+  <table class="dane">
+    <tr><td class="etykieta">Nazwa firmy</td><td>$ubezpieczony</td></tr>
+    <tr><td class="etykieta">NIP</td><td>$nip</td></tr>
+    <tr><td class="etykieta">Numer polisy</td><td>$nr_polisy</td></tr>
+  </table>
+
+  <h2 class="sekcja">2. Zdarzenie</h2>
+  <table class="dane">
+    <tr><td class="etykieta">Data zdarzenia</td><td>$data_zdarzenia_tekst</td></tr>
+    <tr><td class="etykieta">Miejsce szkody</td><td>$adres</td></tr>
+    <tr><td class="etykieta">Rodzaj uszkodzonego mienia</td><td>$rodzaj_mienia_tekst</td></tr>
+    <tr><td class="etykieta">Szacowana wartość szkody</td><td>$kwota_tekst</td></tr>
+  </table>
+
+  <h2 class="sekcja">3. Przyczyna szkody</h2>
+  <div class="opis">$przyczyna</div>
+
+  <h2 class="sekcja">4. Okoliczności zdarzenia</h2>
+  <div class="opis">$okolicznosci</div>
+
+  <h2 class="sekcja">5. Załączniki</h2>
+  <div class="opis">$zalaczniki</div>
+
+  <div class="podpis">
+    Zgłaszający: $zglaszajacy
+    <div class="linia">podpis zgłaszającego</div>
+  </div>
+</body>
+</html>

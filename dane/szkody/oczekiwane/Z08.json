@@ -1,0 +1,41 @@
+{
+  "id": "Z08",
+  "typ_dokumentu": "SZKODA",
+  "pola": {
+    "nr_polisy": "PL/MSP/2026/0006",
+    "ubezpieczony": "Sklep Ogrodniczy Zieleń Anna Wójcik",
+    "nip": "5346066616",
+    "data_zdarzenia": "2026-07-08",
+    "data_zgloszenia": "2026-07-10",
+    "miejsce": {
+      "ulica": "ul. Ogrodowa 2",
+      "kod": "96-100",
+      "miasto": "Skierniewice"
+    },
+    "przyczyna": "Pożar magazynu sklepu ogrodniczego, spłonęły nasiona, nawozy i narzędzia",
+    "rodzaj_mienia": "zapasy",
+    "szacowana_kwota": 85000,
+    "zalaczniki": [
+      "zdjęcia spalonego towaru"
+    ],
+    "okolicznosci": "Pożar ugasiła straż pożarna. Do zgłoszenia dołączono wyłącznie zdjęcia spalonego towaru."
+  },
+  "podejrzane": false,
+  "decyzja_llm": "UZUPELNIENIE",
+  "decyzja": "UZUPELNIENIE",
+  "kody_polisy": [],
+  "paragrafy_oczekiwane": [
+    "§9 ust. 3",
+    "§9 ust. 4"
+  ],
+  "brakujace_dokumenty": [
+    "zaświadczenie straży pożarnej",
+    "zestawienie strat z fakturami"
+  ],
+  "zapytanie_dodatkowe": null,
+  "uwagi_dla_ewaluacji": "Pożar objęty, ale brak zaświadczenia straży i zestawienia strat z fakturami.",
+  "zdjecie": {
+    "rodzaj_zdarzenia": "pozar",
+    "dlugotrwalosc": "NAGLE"
+  }
+}

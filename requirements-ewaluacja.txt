@@ -1,0 +1,27 @@
+# Etap 8: sledzenie ewaluacji w MLflow (lokalnie SQLite, docelowo Azure ML jako serwer
+# sledzenia). NIE instalowac w obrazie Dockera API ani w glownym .venv - ten plik jest tylko
+# dla narzedzi ewaluacji uruchamianych z laptopa, w OSOBNYM srodowisku:
+#
+#   python -m venv .venv-ewaluacja
+#   .venv-ewaluacja\Scripts\python -m pip install -r requirements.txt
+#   .venv-ewaluacja\Scripts\python -m pip install -r requirements-ewaluacja.txt
+#
+# Dlaczego osobno: azureml-mlflow (kazde wydanie do 1.62.0.post6) wymaga
+# azure-storage-blob<=12.27.1, a requirements.txt pinuje 12.31.0 dla API. Drugi krok
+# instalacji obniza azure-storage-blob do 12.27.1 - w .venv-ewaluacja to poprawne (pip check
+# czysty), ale 3 testy tests/test_magazyn_konfiguracja.py padaja (12.27.1 nie rozumie
+# connection-stringa Azurite "UseDevelopmentStorage=true"). Testy API uruchamiaj w .venv.
+#
+# Para wersji sprawdzona na prawdziwym workspace Azure ML 12.10.2026 (parametry, metryki,
+# tabela, artefakty). mlflow 3.17.0 + azureml-mlflow 1.60.0 NIE dziala z Azure ML:
+# "azureml_artifacts_builder() got an unexpected keyword argument 'tracking_uri'".
+# Przy podnoszeniu mlflow sprawdz limit mlflow-skinny w metadanych azureml-mlflow.
+mlflow==3.15.0
+azureml-mlflow==1.62.0.post6
+# mlflow 3.15 mlflow.langchain.autolog() (--mlflow-trace) importuje pakiet langchain, nie tylko
+# langchain-core; bez niego: "No module named langchain" i kod 5.
+langchain==1.4.4
+# Etap 14: ewaluacja RAG szkodowego sedzia LLM (Azure AI Foundry). Dry-run 21.10.2026: dochodza tylko
+# azure-ai-evaluation + nltk, ruamel.yaml, defusedxml, tqdm; wersje mlflow*, azureml-mlflow,
+# azure-storage-blob, azure-core, azure-identity, pandas, openai, httpx bez zmian; pip check czysty.
+azure-ai-evaluation==1.18.9

@@ -1,0 +1,50 @@
+{
+  "id": "W07",
+  "typ_dokumentu": "WNIOSEK",
+  "pola": {
+    "nazwa_firmy": "Drukarnia GrafPol Sp. z o.o.",
+    "nip": "6781234516",
+    "adres": {
+      "ulica": "ul. Drukarska 9",
+      "kod": "91-200",
+      "miasto": "Łódź"
+    },
+    "pkd": "18.12.Z",
+    "branza": "Pozostałe drukowanie",
+    "rodzaj_konstrukcji": "niepalna",
+    "rok_budowy": 2008,
+    "su_budynki": 700000,
+    "su_maszyny": 400000,
+    "su_zapasy": 100000,
+    "tryskacze": false,
+    "ssp": false,
+    "strefa_powodziowa": false,
+    "szkody_3_lata": [
+      {
+        "rok": 2024,
+        "przyczyna": "zalanie",
+        "kwota": 45000
+      },
+      {
+        "rok": 2023,
+        "przyczyna": "kradzież z włamaniem",
+        "kwota": 30000
+      },
+      {
+        "rok": 2022,
+        "przyczyna": "przepięcie",
+        "kwota": 20000
+      }
+    ],
+    "okres_od": "2026-11-15",
+    "okres_do": "2027-11-14",
+    "data_wniosku": "2026-09-29",
+    "broker": "Grupa Brokerska Sigma",
+    "uwagi": null
+  },
+  "decyzja": "SKIEROWANIE",
+  "reguly": [
+    "R07"
+  ],
+  "uwagi_dla_ewaluacji": "3 szkody w ostatnich 3 latach (więcej niż 2) - R07. Dokument to skan bez warstwy tekstu."
+}

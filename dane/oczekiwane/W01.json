@@ -1,0 +1,32 @@
+{
+  "id": "W01",
+  "typ_dokumentu": "WNIOSEK",
+  "pola": {
+    "nazwa_firmy": "Hurtownia Wisła Sp. z o.o.",
+    "nip": "1234563201",
+    "adres": {
+      "ulica": "ul. Zbożowa 12",
+      "kod": "05-500",
+      "miasto": "Piaseczno"
+    },
+    "pkd": "46.49.Z",
+    "branza": "Sprzedaż hurtowa pozostałych artykułów użytku domowego",
+    "rodzaj_konstrukcji": "niepalna",
+    "rok_budowy": 2005,
+    "su_budynki": 1800000,
+    "su_maszyny": 400000,
+    "su_zapasy": 1000000,
+    "tryskacze": false,
+    "ssp": false,
+    "strefa_powodziowa": false,
+    "szkody_3_lata": [],
+    "okres_od": "2026-11-01",
+    "okres_do": "2027-10-31",
+    "data_wniosku": "2026-09-20",
+    "broker": "Biuro Brokerskie Nowak i Wspólnicy",
+    "uwagi": null
+  },
+  "decyzja": "AKCEPTACJA",
+  "reguly": [],
+  "uwagi_dla_ewaluacji": "Przypadek czysty - wszystkie pola w porządku, suma ubezpieczenia 3,2 mln PLN, konstrukcja niepalna."
+}

@@ -1,0 +1,40 @@
+{
+  "id": "Z05",
+  "typ_dokumentu": "SZKODA",
+  "pola": {
+    "nr_polisy": "PL/MSP/2026/0005",
+    "ubezpieczony": "Zakład Mechaniczny Tokar sp. j.",
+    "nip": "6775055507",
+    "data_zdarzenia": "2026-05-18",
+    "data_zgloszenia": "2026-05-20",
+    "miejsce": {
+      "ulica": "ul. Przemysłowa 3",
+      "kod": "32-020",
+      "miasto": "Wieliczka"
+    },
+    "przyczyna": "Korozja tokarki CNC spowodowana wodą przeciekającą przez nieszczelny dach hali",
+    "rodzaj_mienia": "maszyny",
+    "szacowana_kwota": 120000,
+    "zalaczniki": [
+      "zdjęcia dachu",
+      "zdjęcia tokarki",
+      "opinia serwisu"
+    ],
+    "okolicznosci": "Dach przeciekał od kilku miesięcy, właściciel wiedział o nieszczelności i nie zlecił naprawy. Na prowadnicach tokarki pojawiła się rdza."
+  },
+  "podejrzane": false,
+  "decyzja_llm": "ODMOWA",
+  "decyzja": "ODMOWA",
+  "kody_polisy": [],
+  "paragrafy_oczekiwane": [
+    "§6 ust. 4",
+    "§6 ust. 3"
+  ],
+  "brakujace_dokumenty": [],
+  "zapytanie_dodatkowe": null,
+  "uwagi_dla_ewaluacji": "Wyłączenie: zalanie przez nieszczelny dach, korozja / rażące niedbalstwo.",
+  "zdjecie": {
+    "rodzaj_zdarzenia": "korozja_zawilgocenie",
+    "dlugotrwalosc": "DLUGOTRWALE"
+  }
+}

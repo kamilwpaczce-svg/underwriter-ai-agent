@@ -1,0 +1,39 @@
+{
+  "id": "Z02",
+  "typ_dokumentu": "SZKODA",
+  "pola": {
+    "nr_polisy": "PL/MSP/2026/0002",
+    "ubezpieczony": "Drukarnia Wisła s.c.",
+    "nip": "7012022206",
+    "data_zdarzenia": "2026-08-14",
+    "data_zgloszenia": "2026-08-17",
+    "miejsce": {
+      "ulica": "ul. Graniczna 4",
+      "kod": "26-600",
+      "miasto": "Radom"
+    },
+    "przyczyna": "Zalanie hali maszyn wodą z pękniętej rury instalacji wodociągowej",
+    "rodzaj_mienia": "maszyny",
+    "szacowana_kwota": 64000,
+    "zalaczniki": [
+      "zdjęcia maszyny",
+      "protokół serwisu",
+      "faktura zakupu maszyny"
+    ],
+    "okolicznosci": "Woda z pękniętej rury zalała maszynę drukującą offsetową i jej sterownik."
+  },
+  "podejrzane": false,
+  "decyzja_llm": "POKRYTA",
+  "decyzja": "POKRYTA",
+  "kody_polisy": [],
+  "paragrafy_oczekiwane": [
+    "§4 ust. 3"
+  ],
+  "brakujace_dokumenty": [],
+  "zapytanie_dodatkowe": null,
+  "uwagi_dla_ewaluacji": "Zalanie z instalacji wodociągowej - objęte zakresem.",
+  "zdjecie": {
+    "rodzaj_zdarzenia": "zalanie",
+    "dlugotrwalosc": "NAGLE"
+  }
+}

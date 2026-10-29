@@ -1,0 +1,8 @@
+apiVersion: v2
+name: underwriter
+description: >-
+  Underwriter Agent Demo - API (FastAPI) + frontend (Next.js) + Postgres + Azurite,
+  jeden chart na Kubernetesa (Etap 9: kind lokalnie; AKS to osobny krok 9b).
+type: application
+version: 0.1.0
+appVersion: "9.0.0"

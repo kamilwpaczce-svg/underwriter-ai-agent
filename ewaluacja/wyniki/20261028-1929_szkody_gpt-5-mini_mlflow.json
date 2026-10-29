@@ -1,0 +1,465 @@
+{
+  "model": "gpt-5-mini",
+  "modul": "szkody",
+  "metadane": {
+    "wariant": "jeden",
+    "reasoning": "low",
+    "czas_calkowity_ms": 151168.3796000434,
+    "wywolania_llm_laczne": 33,
+    "wywolania_llm_agenci_laczne": 33,
+    "wywolania_supervisora_laczne": 0,
+    "korekty_supervisora_laczne": 0,
+    "trasa_zgodna_laczne": 12,
+    "liczba_przypadkow": 12,
+    "liczba_ok": 12,
+    "tokeny_we_laczne": 45911,
+    "tokeny_wy_laczne": 13091,
+    "wyszukiwarka": "lokalna",
+    "semantyczna": false,
+    "wersja_owu": "dce3071a929f",
+    "koszt_llm_usd_szacunkowy": 0.03765975
+  },
+  "przypadki": [
+    {
+      "id": "Z01",
+      "decyzja_oczekiwana": "POKRYTA",
+      "decyzja_otrzymana": "POKRYTA",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "ocena_llm"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 19081.161099951714,
+      "_wywolania_llm": 3,
+      "_tokeny_we": 4193,
+      "_tokeny_wy": 1300,
+      "trasa": [
+        "wczytaj",
+        "klasyfikuj",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 0,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [],
+      "wywolania_llm_razem": 3
+    },
+    {
+      "id": "Z02",
+      "decyzja_oczekiwana": "POKRYTA",
+      "decyzja_otrzymana": "POKRYTA",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "ocena_llm"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 12887.073100078851,
+      "_wywolania_llm": 3,
+      "_tokeny_we": 4116,
+      "_tokeny_wy": 1242,
+      "trasa": [
+        "wczytaj",
+        "klasyfikuj",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 0,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [],
+      "wywolania_llm_razem": 3
+    },
+    {
+      "id": "Z03",
+      "decyzja_oczekiwana": "POKRYTA",
+      "decyzja_otrzymana": "POKRYTA",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "ocena_llm"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 18028.31329999026,
+      "_wywolania_llm": 3,
+      "_tokeny_we": 4202,
+      "_tokeny_wy": 1054,
+      "trasa": [
+        "wczytaj",
+        "klasyfikuj",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 0,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [],
+      "wywolania_llm_razem": 3
+    },
+    {
+      "id": "Z04",
+      "decyzja_oczekiwana": "ODMOWA",
+      "decyzja_otrzymana": "ODMOWA",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "ocena_llm"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 12947.936299955472,
+      "_wywolania_llm": 3,
+      "_tokeny_we": 4266,
+      "_tokeny_wy": 1178,
+      "trasa": [
+        "wczytaj",
+        "klasyfikuj",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 0,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [],
+      "wywolania_llm_razem": 3
+    },
+    {
+      "id": "Z05",
+      "decyzja_oczekiwana": "ODMOWA",
+      "decyzja_otrzymana": "ODMOWA",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "ocena_llm"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 10467.450099997222,
+      "_wywolania_llm": 3,
+      "_tokeny_we": 4218,
+      "_tokeny_wy": 917,
+      "trasa": [
+        "wczytaj",
+        "klasyfikuj",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 0,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [],
+      "wywolania_llm_razem": 3
+    },
+    {
+      "id": "Z06",
+      "decyzja_oczekiwana": "ODMOWA",
+      "decyzja_otrzymana": "ODMOWA",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "ocena_llm"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 11440.590900019743,
+      "_wywolania_llm": 3,
+      "_tokeny_we": 4173,
+      "_tokeny_wy": 1065,
+      "trasa": [
+        "wczytaj",
+        "klasyfikuj",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 0,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [],
+      "wywolania_llm_razem": 3
+    },
+    {
+      "id": "Z07",
+      "decyzja_oczekiwana": "UZUPELNIENIE",
+      "decyzja_otrzymana": "UZUPELNIENIE",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "ocena_llm"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 16602.882500039414,
+      "_wywolania_llm": 3,
+      "_tokeny_we": 4199,
+      "_tokeny_wy": 1675,
+      "trasa": [
+        "wczytaj",
+        "klasyfikuj",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 0,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [],
+      "wywolania_llm_razem": 3
+    },
+    {
+      "id": "Z08",
+      "decyzja_oczekiwana": "UZUPELNIENIE",
+      "decyzja_otrzymana": "UZUPELNIENIE",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "ocena_llm"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 13045.757199986838,
+      "_wywolania_llm": 3,
+      "_tokeny_we": 4120,
+      "_tokeny_wy": 1350,
+      "trasa": [
+        "wczytaj",
+        "klasyfikuj",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 0,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [],
+      "wywolania_llm_razem": 3
+    },
+    {
+      "id": "Z09",
+      "decyzja_oczekiwana": "SKIEROWANIE",
+      "decyzja_otrzymana": "SKIEROWANIE",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "S01"
+      ],
+      "cytat_trafiony": null,
+      "recall_at_5": null,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 7097.496900008991,
+      "_wywolania_llm": 2,
+      "_tokeny_we": 2750,
+      "_tokeny_wy": 628,
+      "trasa": [
+        "wczytaj",
+        "klasyfikuj",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody"
+      ],
+      "trasa_agentow": [
+        "agent_szkod"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 0,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [],
+      "wywolania_llm_razem": 2
+    },
+    {
+      "id": "Z10",
+      "decyzja_oczekiwana": "SKIEROWANIE",
+      "decyzja_otrzymana": "SKIEROWANIE",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "S03"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 15692.663999972865,
+      "_wywolania_llm": 3,
+      "_tokeny_we": 4186,
+      "_tokeny_wy": 1377,
+      "trasa": [
+        "wczytaj",
+        "klasyfikuj",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 0,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [],
+      "wywolania_llm_razem": 3
+    },
+    {
+      "id": "Z11",
+      "decyzja_oczekiwana": "ODMOWA",
+      "decyzja_otrzymana": "ODMOWA",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "S02"
+      ],
+      "cytat_trafiony": null,
+      "recall_at_5": null,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 6648.573599988595,
+      "_wywolania_llm": 2,
+      "_tokeny_we": 2698,
+      "_tokeny_wy": 578,
+      "trasa": [
+        "wczytaj",
+        "klasyfikuj",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody"
+      ],
+      "trasa_agentow": [
+        "agent_szkod"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 0,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [],
+      "wywolania_llm_razem": 2
+    },
+    {
+      "id": "Z12",
+      "decyzja_oczekiwana": "SKIEROWANIE",
+      "decyzja_otrzymana": "SKIEROWANIE",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "podejrzane_instrukcje"
+      ],
+      "cytat_trafiony": null,
+      "recall_at_5": null,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 7212.063699960709,
+      "_wywolania_llm": 2,
+      "_tokeny_we": 2790,
+      "_tokeny_wy": 727,
+      "trasa": [
+        "wczytaj",
+        "klasyfikuj",
+        "ekstrahuj_szkode"
+      ],
+      "trasa_agentow": [
+        "agent_szkod"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 0,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [],
+      "wywolania_llm_razem": 2
+    }
+  ]
+}

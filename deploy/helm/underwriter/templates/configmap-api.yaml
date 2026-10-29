@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "underwriter.fullname" . }}-api-config
+  labels:
+    {{- include "underwriter.labels" . | nindent 4 }}
+    app.kubernetes.io/component: api
+data:
+  MODEL_AGENTA: {{ .Values.api.modelAgenta | quote }}
+  KONTENER_BLOB: {{ .Values.azurite.kontenerBlob | quote }}
+  CORS_ORIGINS: {{ .Values.api.corsOrigins | quote }}

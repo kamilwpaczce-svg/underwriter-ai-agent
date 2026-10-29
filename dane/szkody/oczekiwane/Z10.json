@@ -1,0 +1,43 @@
+{
+  "id": "Z10",
+  "typ_dokumentu": "SZKODA",
+  "pola": {
+    "nr_polisy": "PL/MSP/2026/0004",
+    "ubezpieczony": "Hurtownia Papieru Mazur sp. z o.o.",
+    "nip": "9524044407",
+    "data_zdarzenia": "2026-09-21",
+    "data_zgloszenia": "2026-09-22",
+    "miejsce": {
+      "ulica": "ul. Składowa 8",
+      "kod": "05-500",
+      "miasto": "Piaseczno"
+    },
+    "przyczyna": "Zalanie magazynu wodą z instalacji tryskaczowej po awarii zaworu",
+    "rodzaj_mienia": "zapasy",
+    "szacowana_kwota": 720000,
+    "zalaczniki": [
+      "protokół serwisu instalacji tryskaczowej",
+      "zestawienie strat z fakturami",
+      "zdjęcia magazynu"
+    ],
+    "okolicznosci": "Tryskacze uruchomiły się samoczynnie w nocy i zalały cały zapas papieru w magazynie."
+  },
+  "podejrzane": false,
+  "decyzja_llm": "POKRYTA",
+  "decyzja": "SKIEROWANIE",
+  "kody_polisy": [
+    "S03"
+  ],
+  "paragrafy_oczekiwane": [
+    "§4 ust. 3",
+    "§8 ust. 2"
+  ],
+  "brakujace_dokumenty": [],
+  "zapytanie_dodatkowe": null,
+  "uwagi_dla_ewaluacji": "Zdarzenie objęte, ale kwota 720 000 > SU zapasów 500 000 (S03) - do likwidatora.",
+  "ground_truth_sedziego": "Ocena LLM: POKRYTA; decyzja koncowa po regulach: SKIEROWANIE (S03).",
+  "zdjecie": {
+    "rodzaj_zdarzenia": "zalanie",
+    "dlugotrwalosc": "NAGLE"
+  }
+}

@@ -1,0 +1,112 @@
+[
+  {
+    "nr_polisy": "PL/MSP/2026/0001",
+    "ubezpieczony": "Piekarnia Złote Kłosy sp. z o.o.",
+    "nip": "5213011102",
+    "okres_od": "2026-01-01",
+    "okres_do": "2026-12-31",
+    "su_budynki": 2000000,
+    "su_maszyny": 400000,
+    "su_zapasy": 150000,
+    "szkody_3_lata": 0
+  },
+  {
+    "nr_polisy": "PL/MSP/2026/0002",
+    "ubezpieczony": "Drukarnia Wisła s.c.",
+    "nip": "7012022206",
+    "okres_od": "2026-01-01",
+    "okres_do": "2026-12-31",
+    "su_budynki": 1500000,
+    "su_maszyny": 800000,
+    "su_zapasy": 200000,
+    "szkody_3_lata": 1
+  },
+  {
+    "nr_polisy": "PL/MSP/2026/0003",
+    "ubezpieczony": "Stolarnia Dębowa Jan Nowicki",
+    "nip": "1133033306",
+    "okres_od": "2026-01-01",
+    "okres_do": "2026-12-31",
+    "su_budynki": 900000,
+    "su_maszyny": 300000,
+    "su_zapasy": 120000,
+    "szkody_3_lata": 0
+  },
+  {
+    "nr_polisy": "PL/MSP/2026/0004",
+    "ubezpieczony": "Hurtownia Papieru Mazur sp. z o.o.",
+    "nip": "9524044407",
+    "okres_od": "2026-01-01",
+    "okres_do": "2026-12-31",
+    "su_budynki": 1200000,
+    "su_maszyny": 100000,
+    "su_zapasy": 500000,
+    "szkody_3_lata": 2
+  },
+  {
+    "nr_polisy": "PL/MSP/2026/0005",
+    "ubezpieczony": "Zakład Mechaniczny Tokar sp. j.",
+    "nip": "6775055507",
+    "okres_od": "2026-01-01",
+    "okres_do": "2026-12-31",
+    "su_budynki": 1800000,
+    "su_maszyny": 1200000,
+    "su_zapasy": 100000,
+    "szkody_3_lata": 0
+  },
+  {
+    "nr_polisy": "PL/MSP/2026/0006",
+    "ubezpieczony": "Sklep Ogrodniczy Zieleń Anna Wójcik",
+    "nip": "5346066616",
+    "okres_od": "2026-01-01",
+    "okres_do": "2026-12-31",
+    "su_budynki": 600000,
+    "su_maszyny": 50000,
+    "su_zapasy": 250000,
+    "szkody_3_lata": 3
+  },
+  {
+    "nr_polisy": "PL/MSP/2026/0007",
+    "ubezpieczony": "Serwis Komputerowy Bajt sp. z o.o.",
+    "nip": "7767077707",
+    "okres_od": "2026-01-01",
+    "okres_do": "2026-12-31",
+    "su_budynki": 400000,
+    "su_maszyny": 300000,
+    "su_zapasy": 80000,
+    "szkody_3_lata": 1
+  },
+  {
+    "nr_polisy": "PL/MSP/2026/0008",
+    "ubezpieczony": "Pralnia Przemysłowa Czysta sp. z o.o.",
+    "nip": "1188088805",
+    "okres_od": "2026-01-01",
+    "okres_do": "2026-12-31",
+    "su_budynki": 1000000,
+    "su_maszyny": 700000,
+    "su_zapasy": 30000,
+    "szkody_3_lata": 0
+  },
+  {
+    "nr_polisy": "PL/MSP/2025/0009",
+    "ubezpieczony": "Magazyny Logistyczne Kampinos S.A.",
+    "nip": "5279099900",
+    "okres_od": "2025-03-01",
+    "okres_do": "2026-02-28",
+    "su_budynki": 3000000,
+    "su_maszyny": 200000,
+    "su_zapasy": 900000,
+    "szkody_3_lata": 4
+  },
+  {
+    "nr_polisy": "PL/MSP/2026/0010",
+    "ubezpieczony": "Cukiernia Słodki Róg Ewa Lis",
+    "nip": "6310101017",
+    "okres_od": "2026-04-01",
+    "okres_do": "2027-03-31",
+    "su_budynki": 700000,
+    "su_maszyny": 250000,
+    "su_zapasy": 60000,
+    "szkody_3_lata": 1
+  }
+]

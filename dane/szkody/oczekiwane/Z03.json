@@ -1,0 +1,41 @@
+{
+  "id": "Z03",
+  "typ_dokumentu": "SZKODA",
+  "pola": {
+    "nr_polisy": "PL/MSP/2026/0003",
+    "ubezpieczony": "Stolarnia Dębowa Jan Nowicki",
+    "nip": "1133033306",
+    "data_zdarzenia": "2026-07-20",
+    "data_zgloszenia": "2026-07-31",
+    "miejsce": {
+      "ulica": "ul. Leśna 27",
+      "kod": "07-300",
+      "miasto": "Ostrów Mazowiecka"
+    },
+    "przyczyna": "Przepięcie w sieci elektrycznej po uderzeniu pioruna podczas burzy",
+    "rodzaj_mienia": "maszyny",
+    "szacowana_kwota": 31000,
+    "zalaczniki": [
+      "opinia serwisu",
+      "zdjęcia sterownika",
+      "faktura naprawy"
+    ],
+    "okolicznosci": "Uszkodzeniu uległy sterownik i silnik pilarki formatowej. Szkodę zgłoszono po 11 dniach z powodu urlopu właściciela."
+  },
+  "podejrzane": false,
+  "decyzja_llm": "POKRYTA",
+  "decyzja": "POKRYTA",
+  "kody_polisy": [
+    "S04"
+  ],
+  "paragrafy_oczekiwane": [
+    "§4 ust. 2"
+  ],
+  "brakujace_dokumenty": [],
+  "zapytanie_dodatkowe": null,
+  "uwagi_dla_ewaluacji": "Przepięcie po uderzeniu pioruna - objęte; zgłoszenie po 11 dniach (S04, tylko flaga).",
+  "zdjecie": {
+    "rodzaj_zdarzenia": "przepiecie",
+    "dlugotrwalosc": "NAGLE"
+  }
+}

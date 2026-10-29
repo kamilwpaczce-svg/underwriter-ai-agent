@@ -1,0 +1,85 @@
+# Domyslne wartosci chartu. tests/test_helm.py renderuje ten plik BEZ zadnych
+# nadpisan ("helm template z domyslnymi values") - musi dzialac od razu.
+#
+# Tagi obrazow ponizej ("dev") sa tylko wartoscia domyslna do lokalnego "helm template"/
+# "helm lint" bez obrazu w rejestrze. deploy/kind/uruchom.sh ZAWSZE nadpisuje
+# api.image.tag/frontend.image.tag krotkim SHA commita (--set) - "dev" nigdy nie trafia
+# na klaster. Nigdzie w tym pliku nie ma tagu "latest" (patrz SPEC_ETAP9.md, pkt 1).
+
+api:
+  image:
+    repository: underwriter-api
+    tag: dev
+    pullPolicy: IfNotPresent
+  replicas: 1
+  # atrapa | gemini | azure - na klastrze testujemy wylacznie atrapa (bez sieci, bez kluczy).
+  modelAgenta: atrapa
+  corsOrigins: http://localhost:8080
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+frontend:
+  image:
+    repository: underwriter-frontend
+    tag: dev
+    pullPolicy: IfNotPresent
+  replicas: 1
+  nodePort: 30080
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 300m
+      memory: 256Mi
+
+postgres:
+  # true = StatefulSet wewnatrz klastra (domyslnie, kind). false = Postgres zewnetrzny
+  # (przyszly AKS + Postgres Flexible Server) - wtedy DATABASE_URL bierzemy wprost
+  # z postgres.zewnetrznyDatabaseUrl, zadnego StatefulSet/Secret hasla.
+  wewnetrzny: true
+  image: postgres:17
+  uzytkownik: underwriter
+  baza: underwriter
+  pojemnoscPvc: 1Gi
+  zewnetrznyDatabaseUrl: ""
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+azurite:
+  # true = Deployment wewnatrz klastra (domyslnie, kind - zamiennik Azure Storage).
+  # false = magazyn zewnetrzny (przyszly AKS: prawdziwe konto Storage + Managed Identity,
+  # poza zakresem Etapu 9) - wtedy AZURE_STORAGE_CONNECTION_STRING bierzemy z
+  # azurite.zewnetrznyConnectionString.
+  wlaczony: true
+  image: mcr.microsoft.com/azure-storage/azurite:3.37.0
+  kontenerBlob: wnioski
+  zewnetrznyConnectionString: ""
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 300m
+      memory: 256Mi
+
+migracje:
+  # Job Alembica (pre-install,pre-upgrade hook) uzywajacy obrazu API - patrz
+  # templates/job-migracje.yaml i komentarz tam o wyborze mechanizmu.
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi

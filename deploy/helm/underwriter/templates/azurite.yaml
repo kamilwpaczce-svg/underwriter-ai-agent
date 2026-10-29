@@ -1,0 +1,76 @@
+{{- if .Values.azurite.wlaczony }}
+{{- $fullname := include "underwriter.fullname" . -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullname }}-azurite
+  labels:
+    {{- include "underwriter.labels" . | nindent 4 }}
+    app.kubernetes.io/component: azurite
+spec:
+  selector:
+    {{- include "underwriter.selectorLabels" (dict "root" $ "component" "azurite") | nindent 4 }}
+  ports:
+    - port: 10000
+      targetPort: 10000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullname }}-azurite
+  labels:
+    {{- include "underwriter.labels" . | nindent 4 }}
+    app.kubernetes.io/component: azurite
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "underwriter.selectorLabels" (dict "root" $ "component" "azurite") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "underwriter.labels" . | nindent 8 }}
+        app.kubernetes.io/component: azurite
+    spec:
+      containers:
+        - name: azurite
+          image: {{ .Values.azurite.image }}
+          imagePullPolicy: IfNotPresent
+          # --skipApiVersionCheck: powod identyczny jak w docker-compose.yml -
+          # zainstalowany azure-storage-blob (12.31.0) wysyla wersje API nowsza niz
+          # ten obraz Azurite rozumie (patrz komentarz w docker-compose.yml).
+          # --location /data: jedyny zapisywalny katalog przy readOnlyRootFilesystem.
+          args:
+            - "azurite-blob"
+            - "--blobHost"
+            - "0.0.0.0"
+            - "--skipApiVersionCheck"
+            - "--location"
+            - "/data"
+          ports:
+            - containerPort: 10000
+          volumeMounts:
+            - name: dane
+              mountPath: /data
+            - name: tmp
+              mountPath: /tmp
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+            readOnlyRootFilesystem: true
+          resources:
+            {{- toYaml .Values.azurite.resources | nindent 12 }}
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: dane
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
+{{- end }}

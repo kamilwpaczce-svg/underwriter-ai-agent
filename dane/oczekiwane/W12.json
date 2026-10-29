@@ -1,0 +1,35 @@
+{
+  "id": "W12",
+  "typ_dokumentu": "WNIOSEK",
+  "pola": {
+    "nazwa_firmy": "Gajda-Bud Sp. z o.o.",
+    "nip": "2938475614",
+    "adres": {
+      "ulica": "ul. Budowlana 7",
+      "kod": "05-820",
+      "miasto": "Piastów"
+    },
+    "pkd": "41.20.Z",
+    "branza": null,
+    "rodzaj_konstrukcji": null,
+    "rok_budowy": null,
+    "su_budynki": 1000000,
+    "su_maszyny": 300000,
+    "su_zapasy": 200000,
+    "tryskacze": null,
+    "ssp": null,
+    "strefa_powodziowa": null,
+    "szkody_3_lata": null,
+    "okres_od": "2026-09-15",
+    "okres_do": null,
+    "data_wniosku": "2026-10-02",
+    "broker": "Tomasz Gajda",
+    "uwagi": null
+  },
+  "decyzja": "UZUPELNIENIE",
+  "reguly": [
+    "R02",
+    "R09"
+  ],
+  "uwagi_dla_ewaluacji": "Brak deklaracji szkodowości i rodzaju konstrukcji (R02); okres_od wcześniejszy niż data wniosku (R09). UZUPEŁNIENIE wygrywa z priorytetem."
+}

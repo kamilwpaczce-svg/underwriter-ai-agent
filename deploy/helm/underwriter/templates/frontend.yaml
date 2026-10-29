@@ -1,0 +1,81 @@
+{{- $fullname := include "underwriter.fullname" . -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullname }}-frontend
+  labels:
+    {{- include "underwriter.labels" . | nindent 4 }}
+    app.kubernetes.io/component: frontend
+spec:
+  type: NodePort
+  selector:
+    {{- include "underwriter.selectorLabels" (dict "root" $ "component" "frontend") | nindent 4 }}
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: {{ .Values.frontend.nodePort }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullname }}-frontend
+  labels:
+    {{- include "underwriter.labels" . | nindent 4 }}
+    app.kubernetes.io/component: frontend
+spec:
+  replicas: {{ .Values.frontend.replicas }}
+  selector:
+    matchLabels:
+      {{- include "underwriter.selectorLabels" (dict "root" $ "component" "frontend") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "underwriter.labels" . | nindent 8 }}
+        app.kubernetes.io/component: frontend
+    spec:
+      securityContext:
+        fsGroup: 1001
+      containers:
+        - name: frontend
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          env:
+            # Czytane w czasie dzialania przez frontend/app/api/[...sciezka]/route.ts,
+            # nie przy buildzie (patrz frontend/Dockerfile) - Service API po nazwie.
+            - name: API_URL_WEWNETRZNY
+              value: "http://{{ $fullname }}-api:8000"
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            periodSeconds: 15
+            timeoutSeconds: 3
+            failureThreshold: 5
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+          securityContext:
+            runAsNonRoot: true
+            # Liczbowo, bo frontend/Dockerfile ma "USER nextjs" (nazwa) - patrz
+            # underwriter.securityContextApi w _helpers.tpl.
+            runAsUser: 1001
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+            readOnlyRootFilesystem: true
+          resources:
+            {{- toYaml .Values.frontend.resources | nindent 12 }}
+      volumes:
+        - name: tmp
+          emptyDir: {}

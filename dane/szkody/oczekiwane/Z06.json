@@ -1,0 +1,38 @@
+{
+  "id": "Z06",
+  "typ_dokumentu": "SZKODA",
+  "pola": {
+    "nr_polisy": "PL/MSP/2026/0008",
+    "ubezpieczony": "Pralnia Przemysłowa Czysta sp. z o.o.",
+    "nip": "1188088805",
+    "data_zdarzenia": "2026-08-25",
+    "data_zgloszenia": "2026-08-26",
+    "miejsce": {
+      "ulica": "ul. Fabryczna 19",
+      "kod": "95-100",
+      "miasto": "Zgierz"
+    },
+    "przyczyna": "Wewnętrzna awaria silnika pralnicy przemysłowej, spalenie uzwojenia",
+    "rodzaj_mienia": "maszyny",
+    "szacowana_kwota": 38000,
+    "zalaczniki": [
+      "protokół serwisu",
+      "faktura zakupu pralnicy"
+    ],
+    "okolicznosci": "Silnik przegrzał się w trakcie pracy; nie wystąpiło przepięcie, pożar ani inne zdarzenie zewnętrzne."
+  },
+  "podejrzane": false,
+  "decyzja_llm": "ODMOWA",
+  "decyzja": "ODMOWA",
+  "kody_polisy": [],
+  "paragrafy_oczekiwane": [
+    "§6 ust. 7"
+  ],
+  "brakujace_dokumenty": [],
+  "zapytanie_dodatkowe": null,
+  "uwagi_dla_ewaluacji": "Wyłączenie: wewnętrzna awaria mechaniczna/elektryczna bez zdarzenia zewnętrznego.",
+  "zdjecie": {
+    "rodzaj_zdarzenia": "awaria_wewnetrzna",
+    "dlugotrwalosc": "NAGLE"
+  }
+}

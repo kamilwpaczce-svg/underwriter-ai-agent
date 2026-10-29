@@ -1,0 +1,83 @@
+{{/*
+Migracje Alembic dokladnie raz na wydanie - NIE w initContainerze kazdego poda API.
+
+Dlaczego nie initContainer w podzie API: `alembic upgrade head` nie bierze zadnej blokady
+na tabeli `alembic_version` (ani Postgres advisory lock) - przy replicas > 1 dwa
+initContainery wystartowane rownolegle moga obie odczytac "wersja X" i obie migrowac do
+X+1 (zduplikowany DDL albo "relation already exists"). Jeden Job na wydanie eliminuje
+ten wyscig z definicji.
+
+Dlaczego ZWYKLY Job, a nie hook pre-install/pre-upgrade (pierwsza wersja chartu, odrzucona
+14.10 po uruchomieniu na kind): hook pre-install startuje przed zwyklymi zasobami, wiec
+Postgres tez musialby byc hookiem - a Helm 4 NIE czekal na gotowosc StatefulSetu-hooka
+(Job i Postgres wystartowaly w tej samej sekundzie), a zasob-hook nie nalezy do wydania
+("helm uninstall" go nie usuwa, StatefulSet z PVC zostaje sierota).
+
+Jak to dziala teraz:
+- nazwa z numerem rewizji (-r<N>): kazde "helm upgrade" tworzy nowy Job (spec Joba jest
+  niemutowalny), a Job poprzedniej rewizji znika z manifestu, wiec Helm go usuwa;
+- Job sam czeka na Postgresa (petla `alembic current`, ktora tylko laczy sie z baza,
+  niczego nie zmienia), potem JEDEN raz `alembic upgrade head` - blad migracji to
+  niezerowy kod wyjscia, Job Failed, a "helm upgrade --wait --wait-for-jobs" konczy sie
+  bledem (patrz deploy/kind/uruchom.sh);
+- pod API ma initContainer "czekaj-na-schemat" (api.yaml), ktory nie wypuszcza
+  kontenera API, dopoki `alembic current` nie pokaze "(head)" - API fizycznie nie moze
+  byc Ready bez schematu, niezaleznie od kolejnosci startu.
+*/}}
+{{- $fullname := include "underwriter.fullname" . -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ $fullname }}-migracje-r{{ .Release.Revision }}
+  labels:
+    {{- include "underwriter.labels" . | nindent 4 }}
+    app.kubernetes.io/component: migracja
+spec:
+  # 0 ponowien: na chwilowy brak bazy jest petla ponizej, a prawdziwy blad migracji
+  # (zly DDL, zly adres) ma od razu dac Job Failed i czytelny blad "helm upgrade",
+  # nie kolejne minuty czekania konczace sie timeoutem.
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        {{- include "underwriter.labels" . | nindent 8 }}
+        app.kubernetes.io/component: migracja
+    spec:
+      restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
+      containers:
+        - name: migracje
+          image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
+          imagePullPolicy: {{ .Values.api.image.pullPolicy }}
+          # Nadpisuje CMD obrazu (docker/start_api.sh) - ten Job ma wykonac WYLACZNIE
+          # migracje i zakonczyc sie, nie wystartowac uvicorn.
+          command:
+            - sh
+            - -c
+            - |
+              # Limit CZASU, nie liczby prob: przy zlym hoscie kazde `alembic current`
+              # wisi kilka sekund na DNS (60 prob trwalo ~8 min - sprawdzone 14.10).
+              koniec=$(( $(date +%s) + 180 ))
+              until alembic current >/dev/null 2>&1; do
+                if [ "$(date +%s)" -ge "$koniec" ]; then
+                  echo "Postgres niedostepny przez 180 s - przerywam migracje."
+                  exit 1
+                fi
+                echo "Postgres jeszcze niedostepny, czekam 3 s..."
+                sleep 3
+              done
+              exec alembic upgrade head
+          envFrom:
+            - secretRef:
+                name: {{ $fullname }}-app
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+          securityContext:
+            {{- include "underwriter.securityContextApi" . | nindent 12 }}
+          resources:
+            {{- toYaml .Values.migracje.resources | nindent 12 }}
+      volumes:
+        - name: tmp
+          emptyDir: {}

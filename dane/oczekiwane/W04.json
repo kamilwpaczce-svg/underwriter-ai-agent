@@ -1,0 +1,34 @@
+{
+  "id": "W04",
+  "typ_dokumentu": "WNIOSEK",
+  "pola": {
+    "nazwa_firmy": "Centrum Logistyczne Wschód Sp. z o.o.",
+    "nip": "4567812307",
+    "adres": {
+      "ulica": "ul. Logistyczna 3",
+      "kod": "21-040",
+      "miasto": "Świdnik"
+    },
+    "pkd": "52.10.B",
+    "branza": "Magazynowanie i przechowywanie pozostałych towarów",
+    "rodzaj_konstrukcji": "niepalna",
+    "rok_budowy": 2010,
+    "su_budynki": 9000000,
+    "su_maszyny": 3000000,
+    "su_zapasy": 2500000,
+    "tryskacze": true,
+    "ssp": true,
+    "strefa_powodziowa": false,
+    "szkody_3_lata": [],
+    "okres_od": "2026-11-01",
+    "okres_do": "2027-10-31",
+    "data_wniosku": "2026-09-25",
+    "broker": "Broker24 Sp. z o.o.",
+    "uwagi": null
+  },
+  "decyzja": "SKIEROWANIE",
+  "reguly": [
+    "R04"
+  ],
+  "uwagi_dla_ewaluacji": "Łączna suma ubezpieczenia 14,5 mln > 10 mln - R04. Konstrukcja niepalna, więc R05/R06 nie dotyczą."
+}

@@ -1,0 +1,96 @@
+wersja: 1
+produkt: "Ubezpieczenie mienia MSP od ognia i innych zdarzen losowych"
+
+# Pola, ktorych brak w dokumencie uruchamia regule R02 (UZUPELNIENIE).
+# "suma_ubezpieczenia" oznacza: co najmniej jedna z su_budynki / su_maszyny / su_zapasy > 0.
+pola_wymagane:
+  - nip
+  - adres
+  - pkd
+  - rodzaj_konstrukcji
+  - szkodowosc
+  - suma_ubezpieczenia
+
+reguly:
+  - id: R01
+    opis: >
+      PKD dzialalnosci znajduje sie na liscie wylaczonej z ubezpieczenia
+      (materialy wybuchowe, gospodarka odpadami, produkty rafinacji ropy
+      naftowej). Odmow ubezpieczenia niezaleznie od pozostalych parametrow.
+    skutek: ODMOWA
+    parametry:
+      prefiksy_pkd_wylaczone:
+        - "20.51"   # produkcja materialow wybuchowych
+        - "38"      # gospodarka odpadami (cala sekcja/dzial 38)
+        - "19.20"   # wytwarzanie produktow rafinacji ropy naftowej
+
+  - id: R02
+    opis: >
+      W dokumencie brakuje ktoregos z pol wymaganych (NIP, adres lokalizacji,
+      PKD, rodzaj konstrukcji, deklaracja szkodowosci, co najmniej jedna suma
+      ubezpieczenia > 0). Popros brokera o uzupelnienie.
+    skutek: UZUPELNIENIE
+    parametry: {}
+
+  - id: R03
+    opis: >
+      Podany NIP ma bledna sume kontrolna. Popros brokera o poprawny numer.
+    skutek: UZUPELNIENIE
+    parametry: {}
+
+  - id: R04
+    opis: >
+      Laczna suma ubezpieczenia (budynki + maszyny i urzadzenia + zapasy)
+      przekracza prog wymagajacy decyzji starszego underwritera.
+    skutek: SKIEROWANIE
+    parametry:
+      prog_laczna_su_pln: 10000000
+
+  - id: R05
+    opis: >
+      Konstrukcja palna (drewniana lub plyta warstwowa z rdzeniem EPS),
+      laczna suma ubezpieczenia powyzej progu i brak zarowno tryskaczy, jak
+      i systemu sygnalizacji pozaru (SSP). Skieruj do starszego underwritera.
+    skutek: SKIEROWANIE
+    parametry:
+      konstrukcje_palne:
+        - drewniana
+        - plyta_warstwowa_eps
+      prog_laczna_su_pln: 2000000
+
+  - id: R06
+    opis: >
+      Konstrukcja palna w budynku wzniesionym przed podanym rokiem granicznym.
+      Ryzyko zbyt wysokie - odmowa.
+    skutek: ODMOWA
+    parametry:
+      konstrukcje_palne:
+        - drewniana
+        - plyta_warstwowa_eps
+      rok_budowy_graniczny: 1960
+
+  - id: R07
+    opis: >
+      Wiecej niz dopuszczalna liczba szkod w ostatnich 3 latach albo
+      jakakolwiek pojedyncza szkoda powyzej progu kwotowego. Skieruj do
+      starszego underwritera.
+    skutek: SKIEROWANIE
+    parametry:
+      maks_liczba_szkod: 2
+      prog_pojedynczej_szkody_pln: 500000
+
+  - id: R08
+    opis: >
+      Lokalizacja zadeklarowana w strefie zagrozenia powodzia, a suma
+      ubezpieczenia zapasow przekracza prog. Skieruj do starszego
+      underwritera.
+    skutek: SKIEROWANIE
+    parametry:
+      prog_su_zapasy_pln: 1000000
+
+  - id: R09
+    opis: >
+      Poczatek okresu ubezpieczenia jest wczesniejszy niz data wniosku
+      (ochrona wsteczna). Wymaga decyzji starszego underwritera.
+    skutek: SKIEROWANIE
+    parametry: {}

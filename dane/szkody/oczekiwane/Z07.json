@@ -1,0 +1,41 @@
+{
+  "id": "Z07",
+  "typ_dokumentu": "SZKODA",
+  "pola": {
+    "nr_polisy": "PL/MSP/2026/0007",
+    "ubezpieczony": "Serwis Komputerowy Bajt sp. z o.o.",
+    "nip": "7767077707",
+    "data_zdarzenia": "2026-09-14",
+    "data_zgloszenia": "2026-09-15",
+    "miejsce": {
+      "ulica": "ul. Kopernika 41",
+      "kod": "87-100",
+      "miasto": "Toruń"
+    },
+    "przyczyna": "Kradzież z włamaniem do lokalu serwisu, skradziono laptopy klientów i sprzęt diagnostyczny",
+    "rodzaj_mienia": "maszyny",
+    "szacowana_kwota": 56000,
+    "zalaczniki": [
+      "zdjęcia wyłamanych drzwi",
+      "lista skradzionego sprzętu"
+    ],
+    "okolicznosci": "Sprawcy wyważyli w nocy drzwi zewnętrzne. Do zgłoszenia dołączono zdjęcia wyłamanych drzwi i listę skradzionego sprzętu."
+  },
+  "podejrzane": false,
+  "decyzja_llm": "UZUPELNIENIE",
+  "decyzja": "UZUPELNIENIE",
+  "kody_polisy": [],
+  "paragrafy_oczekiwane": [
+    "§9 ust. 2",
+    "§10 ust. 2"
+  ],
+  "brakujace_dokumenty": [
+    "potwierdzenie zgłoszenia na policji"
+  ],
+  "zapytanie_dodatkowe": "dokumenty wymagane po kradzieży z włamaniem, potwierdzenie zgłoszenia na policji",
+  "uwagi_dla_ewaluacji": "Brak potwierdzenia zgłoszenia kradzieży na policji; model powinien dopytać OWU o dokumenty.",
+  "zdjecie": {
+    "rodzaj_zdarzenia": "kradziez_wlamanie",
+    "dlugotrwalosc": "NAGLE"
+  }
+}

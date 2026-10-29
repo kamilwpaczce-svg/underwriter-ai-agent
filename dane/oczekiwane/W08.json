@@ -1,0 +1,40 @@
+{
+  "id": "W08",
+  "typ_dokumentu": "WNIOSEK",
+  "pola": {
+    "nazwa_firmy": "Warsztat Mechaniczny AutoFix Sp. z o.o.",
+    "nip": "7812345603",
+    "adres": {
+      "ulica": "ul. Warsztatowa 6",
+      "kod": "44-100",
+      "miasto": "Gliwice"
+    },
+    "pkd": "45.20.Z",
+    "branza": "Konserwacja i naprawa pojazdów samochodowych",
+    "rodzaj_konstrukcji": "niepalna",
+    "rok_budowy": 1990,
+    "su_budynki": 900000,
+    "su_maszyny": 450000,
+    "su_zapasy": 150000,
+    "tryskacze": false,
+    "ssp": false,
+    "strefa_powodziowa": false,
+    "szkody_3_lata": [
+      {
+        "rok": 2025,
+        "przyczyna": "pożar",
+        "kwota": 620000
+      }
+    ],
+    "okres_od": "2026-11-01",
+    "okres_do": "2027-10-31",
+    "data_wniosku": "2026-09-30",
+    "broker": "Biuro Ubezpieczeń Kowalczyk",
+    "uwagi": null
+  },
+  "decyzja": "SKIEROWANIE",
+  "reguly": [
+    "R07"
+  ],
+  "uwagi_dla_ewaluacji": "Pojedyncza szkoda pożarowa 620 tys. > 500 tys. - R07. Skan mocno zdegradowany (krzywy, zaszumiony)."
+}

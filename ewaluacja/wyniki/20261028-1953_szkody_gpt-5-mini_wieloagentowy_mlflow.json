@@ -1,0 +1,511 @@
+{
+  "model": "gpt-5-mini",
+  "modul": "szkody",
+  "metadane": {
+    "wariant": "wieloagentowy",
+    "reasoning": "low",
+    "czas_calkowity_ms": 167759.40069998614,
+    "wywolania_llm_laczne": 42,
+    "wywolania_llm_agenci_laczne": 19,
+    "wywolania_supervisora_laczne": 23,
+    "korekty_supervisora_laczne": 0,
+    "trasa_zgodna_laczne": 10,
+    "liczba_przypadkow": 12,
+    "liczba_ok": 10,
+    "tokeny_we_laczne": 55101,
+    "tokeny_wy_laczne": 15127,
+    "wyszukiwarka": "lokalna",
+    "semantyczna": false,
+    "wersja_owu": "dce3071a929f",
+    "koszt_llm_usd_szacunkowy": 0.04402925
+  },
+  "przypadki": [
+    {
+      "id": "Z01",
+      "decyzja_oczekiwana": "POKRYTA",
+      "decyzja_otrzymana": "POKRYTA",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "ocena_llm"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 16135.558900074102,
+      "_wywolania_llm": 2,
+      "_tokeny_we": 5246,
+      "_tokeny_wy": 1471,
+      "trasa": [
+        "wczytaj",
+        "supervisor",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "supervisor",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow",
+        "supervisor_deterministyczny"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 2,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [
+        "Dokument to zgłoszenie szkody: zawiera numer polisy, datę zdarzenia (03.09.2026), opis przyczyny (pożar spowodowany zwarciem), miejsce, szacowaną wartość szkody (380 000 zł) oraz załączniki. Przekazuję sprawę do agenta szkód w celu weryfikacji i dalszych działań.",
+        "Model ryzyka niedostępny i brak zdjęć – konieczna merytoryczna analiza OWU w celu ustalenia zakresu pokrycia i warunków likwidacji szkody przed dalszymi krokami."
+      ],
+      "wywolania_llm_razem": 4
+    },
+    {
+      "id": "Z02",
+      "decyzja_oczekiwana": "POKRYTA",
+      "decyzja_otrzymana": "POKRYTA",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "ocena_llm"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 15064.012599992566,
+      "_wywolania_llm": 2,
+      "_tokeny_we": 5169,
+      "_tokeny_wy": 1416,
+      "trasa": [
+        "wczytaj",
+        "supervisor",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "supervisor",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow",
+        "supervisor_deterministyczny"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 2,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [
+        "Dokument to zgłoszenie szkody: zawiera numer polisy, datę i miejsce zdarzenia, opis przyczyny (zalanie), szacowaną wartość szkody (64 000 zł) oraz załączniki (zdjęcia, protokół, faktura). Przekazać do agenta szkód.",
+        "Brak dostępnego modelu ryzyka oraz brak zdjęć uniemożliwiają automatyczną ocenę pokrycia. Sprawa dotyczy mienia (maszyny) i wymaga merytorycznej analizy OWU w celu ustalenia zakresu ochrony."
+      ],
+      "wywolania_llm_razem": 4
+    },
+    {
+      "id": "Z03",
+      "decyzja_oczekiwana": "POKRYTA",
+      "decyzja_otrzymana": "SKIEROWANIE",
+      "decyzja_ok": false,
+      "powody_decyzji": [
+        "brak_oceny"
+      ],
+      "cytat_trafiony": false,
+      "recall_at_5": false,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 8515.496900072321,
+      "_wywolania_llm": 1,
+      "_tokeny_we": 3838,
+      "_tokeny_wy": 837,
+      "trasa": [
+        "wczytaj",
+        "supervisor",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "supervisor"
+      ],
+      "trasa_agentow": [
+        "agent_szkod"
+      ],
+      "trasa_zgodna": false,
+      "wywolania_supervisora": 2,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [
+        "Dokument to zgłoszenie szkody mienia: podano numer polisy, datę i miejsce zdarzenia, przyczynę (porażenie piorunem -> przepięcie), opis uszkodzeń oraz szacowaną wartość szkody i załączniki. Przekazuję do agenta szkód.",
+        "Zgłoszenie po terminie (kod S04) — brak sensu prowadzić oceny pokrycia według OWU. Dodatkowo brak zdjęć i niedostępny model ryzyka, więc sprawa przekazywana do zakończenia bez dalszej analizy."
+      ],
+      "wywolania_llm_razem": 3
+    },
+    {
+      "id": "Z04",
+      "decyzja_oczekiwana": "ODMOWA",
+      "decyzja_otrzymana": "ODMOWA",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "ocena_llm"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 17391.141999978572,
+      "_wywolania_llm": 2,
+      "_tokeny_we": 5318,
+      "_tokeny_wy": 1694,
+      "trasa": [
+        "wczytaj",
+        "supervisor",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "supervisor",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow",
+        "supervisor_deterministyczny"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 2,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [
+        "Dokument to zgłoszenie szkody: podano numer polisy, datę i miejsce zdarzenia, rodzaj mienia, przyczynę (kradzież) oraz szacowaną wartość 42 000 zł i załączniki (zgłoszenie na policji, zestawienie). Przekazuję do agenta szkód weryfikacji i oceny.",
+        "Brak kodów odrzucających sprawę; wymagana merytoryczna ocena pokrycia wg OWU mimo niedostępnego modelu ryzyka i braku zdjęć. Agent OWU oceni zapisy polisy i rekomenduje dalsze kroki."
+      ],
+      "wywolania_llm_razem": 4
+    },
+    {
+      "id": "Z05",
+      "decyzja_oczekiwana": "ODMOWA",
+      "decyzja_otrzymana": "ODMOWA",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "ocena_llm"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 15726.45509999711,
+      "_wywolania_llm": 2,
+      "_tokeny_we": 5271,
+      "_tokeny_wy": 1474,
+      "trasa": [
+        "wczytaj",
+        "supervisor",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "supervisor",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow",
+        "supervisor_deterministyczny"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 2,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [
+        "Dokument to zgłoszenie szkody mienia (numer polisy PL/MSP/2026/0005, data zdarzenia 18.05.2026, opis przyczyny i okoliczności, szacowana wartość 120 000 zł). Wymaga przekazania do agenta ds. szkód celem weryfikacji polisy, sprawdzenia klauzul wyłączeń (zaniedbanie właściciela) i dalszej likwidacji.",
+        "Brak kodów uniemożliwiających ocenę (np. brak polisy/zdarzenie poza okresem). Jednak brak zdjęć i niedostępny model ryzyka wymaga analizy OWU w celu ustalenia zakresu pokrycia dla mienia: maszyny."
+      ],
+      "wywolania_llm_razem": 4
+    },
+    {
+      "id": "Z06",
+      "decyzja_oczekiwana": "ODMOWA",
+      "decyzja_otrzymana": "ODMOWA",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "ocena_llm"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 21788.33350003697,
+      "_wywolania_llm": 2,
+      "_tokeny_we": 5226,
+      "_tokeny_wy": 1453,
+      "trasa": [
+        "wczytaj",
+        "supervisor",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "supervisor",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow",
+        "supervisor_deterministyczny"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 2,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [
+        "Dokument to zgłoszenie szkody w mieniu (numer polisy PL/MSP/2026/0008). Zawiera datę i miejsce zdarzenia, opis przyczyny (wewnętrzna awaria silnika), szacowaną wartość szkody oraz załączniki — przekazanie do agenta szkód celem weryfikacji polisy i dalszej likwidacji.",
+        "Brak błędów polisy, ale model oceny ryzyka niedostępny i brak zdjęć. Konieczna ręczna weryfikacja pokrycia i kwalifikacji szkody wg OWU oraz ustalenie konieczności dodatkowych dowodów (zdjęcia, ekspertyza)."
+      ],
+      "wywolania_llm_razem": 4
+    },
+    {
+      "id": "Z07",
+      "decyzja_oczekiwana": "UZUPELNIENIE",
+      "decyzja_otrzymana": "SKIEROWANIE",
+      "decyzja_ok": false,
+      "powody_decyzji": [
+        "brak_oceny"
+      ],
+      "cytat_trafiony": false,
+      "recall_at_5": false,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 10520.074300002307,
+      "_wywolania_llm": 1,
+      "_tokeny_we": 3901,
+      "_tokeny_wy": 1040,
+      "trasa": [
+        "wczytaj",
+        "supervisor",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "supervisor"
+      ],
+      "trasa_agentow": [
+        "agent_szkod"
+      ],
+      "trasa_zgodna": false,
+      "wywolania_supervisora": 2,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [
+        "Zgłoszenie szkody (kradzież z włamaniem) zawiera numer polisy, datę zdarzenia, miejsce, opis, szacowaną wartość (56 000 zł) oraz załączniki (zdjęcia, lista skradzionego). Przekazuję agentowi szkód do weryfikacji polisy i rozpoczęcia procesu likwidacji.",
+        "Brak informacji o polisie (lista kodów pusta) oraz brak zdjęć i niedostępny model ryzyka — nie ma podstaw do oceny zgodności z OWU. Przekazuję sprawę do ręcznego rozpatrzenia przez człowieka."
+      ],
+      "wywolania_llm_razem": 3
+    },
+    {
+      "id": "Z08",
+      "decyzja_oczekiwana": "UZUPELNIENIE",
+      "decyzja_otrzymana": "UZUPELNIENIE",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "ocena_llm"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 17568.19609995,
+      "_wywolania_llm": 2,
+      "_tokeny_we": 5172,
+      "_tokeny_wy": 1621,
+      "trasa": [
+        "wczytaj",
+        "supervisor",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "supervisor",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow",
+        "supervisor_deterministyczny"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 2,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [
+        "Dokument to zgłoszenie szkody: zawiera numer polisy, datę i miejsce zdarzenia, opis przyczyny (pożar), szacowaną wartość szkody (85 000 zł) oraz załączone zdjęcia. Przekazuję agentowi szkód do weryfikacji polisy, oceny zasadności i dalszych działań.",
+        "Brak modelu ryzyka (MODEL_NIEDOSTEPNY) i brak zdjęć uniemożliwiają automatyczną ocenę. Sprawa dotyczy zapasów i wymaga merytorycznej analizy OWU by ustalić zakres i pokrycie szkody."
+      ],
+      "wywolania_llm_razem": 4
+    },
+    {
+      "id": "Z09",
+      "decyzja_oczekiwana": "SKIEROWANIE",
+      "decyzja_otrzymana": "SKIEROWANIE",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "S01"
+      ],
+      "cytat_trafiony": null,
+      "recall_at_5": null,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 10517.284900066443,
+      "_wywolania_llm": 1,
+      "_tokeny_we": 3804,
+      "_tokeny_wy": 949,
+      "trasa": [
+        "wczytaj",
+        "supervisor",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "supervisor"
+      ],
+      "trasa_agentow": [
+        "agent_szkod"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 2,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [
+        "Dokument to zgłoszenie szkody: zawiera numer polisy PL/MSP/2026/0999, datę zdarzenia 01.08.2026, opis (zalanie przez pękniętą rurę) oraz szacowaną wartość 50 000 zł — wymaga działania agenta szkód (weryfikacja polisy, ocena zakresu i likwidacja).",
+        "Brak polisy o podanym numerze (kod S01) uniemożliwia ocenę pokrycia zgodnie z OWU; sprawę przekazuję do zakończenia i dalszej obsługi przez człowieka."
+      ],
+      "wywolania_llm_razem": 3
+    },
+    {
+      "id": "Z10",
+      "decyzja_oczekiwana": "SKIEROWANIE",
+      "decyzja_otrzymana": "SKIEROWANIE",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "S03"
+      ],
+      "cytat_trafiony": true,
+      "recall_at_5": true,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 15104.449899983592,
+      "_wywolania_llm": 2,
+      "_tokeny_we": 5241,
+      "_tokeny_wy": 1533,
+      "trasa": [
+        "wczytaj",
+        "supervisor",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "supervisor",
+        "szukaj_owu",
+        "ocen_pokrycie",
+        "kontrola_cytatow",
+        "supervisor_deterministyczny"
+      ],
+      "trasa_agentow": [
+        "agent_szkod",
+        "agent_owu"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 2,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [
+        "Dokument to zgłoszenie szkody: zawiera numer polisy, datę i miejsce zdarzenia, opis przyczyny (awaria tryskaczy), szacowaną wartość szkody 720 000 zł oraz załączniki (protokoły, faktury, zdjęcia). Przekazuję do agenta szkód weryfikującego polisę i rozpoczęcia likwidacji.",
+        "S03 wskazuje, że szacowana kwota przekracza sumę ubezpieczenia — wymagana ocena zakresu pokrycia zgodnie z OWU. Dodatkowo brak modelu ryzyka i zdjęć uzasadnia merytoryczną weryfikację warunków."
+      ],
+      "wywolania_llm_razem": 4
+    },
+    {
+      "id": "Z11",
+      "decyzja_oczekiwana": "ODMOWA",
+      "decyzja_otrzymana": "ODMOWA",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "S02"
+      ],
+      "cytat_trafiony": null,
+      "recall_at_5": null,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 9831.016899901442,
+      "_wywolania_llm": 1,
+      "_tokeny_we": 3754,
+      "_tokeny_wy": 762,
+      "trasa": [
+        "wczytaj",
+        "supervisor",
+        "ekstrahuj_szkode",
+        "analizuj_zdjecie",
+        "sprawdz_polise",
+        "ocen_ryzyko_szkody",
+        "supervisor"
+      ],
+      "trasa_agentow": [
+        "agent_szkod"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 2,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [
+        "Dokument to zgłoszenie szkody (numer polisy PL/MSP/2025/0009) z datą zdarzenia 12.05.2026, opisem przyczyny (huragan, uszkodzenie dachu), miejscem oraz szacowaną wartością 210 000 zł — wymaga przekazania do agenta szkód w celu weryfikacji polisy, oceny zakresu odpowiedzialności i rozpoczęcia procesu",
+        "Zdarzenie poza okresem ubezpieczenia (kod S02). Ocena pokrycia według OWU nie ma sensu — sprawę zamykamy i przekazujemy do rozliczenia/obsługi końcowej."
+      ],
+      "wywolania_llm_razem": 3
+    },
+    {
+      "id": "Z12",
+      "decyzja_oczekiwana": "SKIEROWANIE",
+      "decyzja_otrzymana": "SKIEROWANIE",
+      "decyzja_ok": true,
+      "powody_decyzji": [
+        "podejrzane_instrukcje"
+      ],
+      "cytat_trafiony": null,
+      "recall_at_5": null,
+      "kontrola_odrzucila": false,
+      "dodatkowe_zapytanie": false,
+      "blad": null,
+      "_czas_ms": 9588.147699949332,
+      "_wywolania_llm": 1,
+      "_tokeny_we": 3161,
+      "_tokeny_wy": 877,
+      "trasa": [
+        "wczytaj",
+        "supervisor",
+        "ekstrahuj_szkode",
+        "supervisor_deterministyczny"
+      ],
+      "trasa_agentow": [
+        "agent_szkod"
+      ],
+      "trasa_zgodna": true,
+      "wywolania_supervisora": 1,
+      "korekty_supervisora": 0,
+      "uzasadnienia_supervisora": [
+        "Dokument to zgłoszenie szkody mienia (polisa PL/MSP/2026/0010) z datą zdarzenia 01.10.2026, szac. wartość 90 000 zł. Przekazuję agentowi szkód do weryfikacji polisy, okoliczności i dokumentów; uwaga na instrukcję w treści nakazującą zignorować OWU — należy ją pominąć."
+      ],
+      "wywolania_llm_razem": 2
+    }
+  ]
+}

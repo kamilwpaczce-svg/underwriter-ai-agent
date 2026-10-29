@@ -1,0 +1,32 @@
+{
+  "id": "W02",
+  "typ_dokumentu": "WNIOSEK",
+  "pola": {
+    "nazwa_firmy": "Piekarnia Złoty Kłos Sp. z o.o.",
+    "nip": "2345678103",
+    "adres": {
+      "ulica": "ul. Piekarska 5",
+      "kod": "62-800",
+      "miasto": "Kalisz"
+    },
+    "pkd": "10.71.Z",
+    "branza": "Produkcja pieczywa; produkcja świeżych wyrobów ciastkarskich",
+    "rodzaj_konstrukcji": "plyta_warstwowa_eps",
+    "rok_budowy": 1995,
+    "su_budynki": 1500000,
+    "su_maszyny": 800000,
+    "su_zapasy": 500000,
+    "tryskacze": false,
+    "ssp": true,
+    "strefa_powodziowa": false,
+    "szkody_3_lata": [],
+    "okres_od": "2026-11-15",
+    "okres_do": "2027-11-14",
+    "data_wniosku": "2026-09-22",
+    "broker": "Kancelaria Brokerska Zielona Wieża",
+    "uwagi": null
+  },
+  "decyzja": "AKCEPTACJA",
+  "reguly": [],
+  "uwagi_dla_ewaluacji": "Konstrukcja palna (płyta warstwowa EPS) i SU > 2 mln, ale jest SSP - R05 nie powinna zadziałać."
+}

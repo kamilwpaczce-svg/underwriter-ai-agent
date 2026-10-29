@@ -1,0 +1,34 @@
+{
+  "id": "W10",
+  "typ_dokumentu": "WNIOSEK",
+  "pola": {
+    "nazwa_firmy": "Magazyn Centralny Logis Sp. z o.o.",
+    "nip": "9123456788",
+    "adres": {
+      "ulica": "ul. Magazynowa 15",
+      "kod": "96-500",
+      "miasto": "Sochaczew"
+    },
+    "pkd": "52.10.B",
+    "branza": "magazynowanie i przechowywanie towarów",
+    "rodzaj_konstrukcji": "niepalna",
+    "rok_budowy": 2015,
+    "su_budynki": 2000000,
+    "su_maszyny": 500000,
+    "su_zapasy": 1800000,
+    "tryskacze": true,
+    "ssp": true,
+    "strefa_powodziowa": true,
+    "szkody_3_lata": [],
+    "okres_od": "2026-12-01",
+    "okres_do": "2027-11-30",
+    "data_wniosku": "2026-10-03",
+    "broker": "Marek Zych",
+    "uwagi": null
+  },
+  "decyzja": "SKIEROWANIE",
+  "reguly": [
+    "R08"
+  ],
+  "uwagi_dla_ewaluacji": "Dane w treści e-maila (bez załącznika), swobodny opis brokera. Strefa powodziowa + zapasy 1,8 mln > 1 mln - R08."
+}

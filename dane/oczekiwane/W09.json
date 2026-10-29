@@ -1,0 +1,34 @@
+{
+  "id": "W09",
+  "typ_dokumentu": "WNIOSEK",
+  "pola": {
+    "nazwa_firmy": "Sklep Spożywczy U Krystyny",
+    "nip": "8912345679",
+    "adres": {
+      "ulica": "ul. Spożywcza 2",
+      "kod": "25-304",
+      "miasto": "Kielce"
+    },
+    "pkd": "47.11.Z",
+    "branza": "Sprzedaż detaliczna w niewyspecjalizowanych sklepach z przewagą żywności",
+    "rodzaj_konstrukcji": "niepalna",
+    "rok_budowy": 2012,
+    "su_budynki": 600000,
+    "su_maszyny": 250000,
+    "su_zapasy": 150000,
+    "tryskacze": false,
+    "ssp": false,
+    "strefa_powodziowa": false,
+    "szkody_3_lata": [],
+    "okres_od": "2026-11-15",
+    "okres_do": "2027-11-14",
+    "data_wniosku": "2026-10-01",
+    "broker": "Agencja Brokerska Fenix",
+    "uwagi": null
+  },
+  "decyzja": "UZUPELNIENIE",
+  "reguly": [
+    "R03"
+  ],
+  "uwagi_dla_ewaluacji": "NIP podany w dokumencie ma błędną sumę kontrolną (ostatnia cyfra 9 zamiast 8) - R03."
+}

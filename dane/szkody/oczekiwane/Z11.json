@@ -1,0 +1,38 @@
+{
+  "id": "Z11",
+  "typ_dokumentu": "SZKODA",
+  "pola": {
+    "nr_polisy": "PL/MSP/2025/0009",
+    "ubezpieczony": "Magazyny Logistyczne Kampinos S.A.",
+    "nip": "5279099900",
+    "data_zdarzenia": "2026-05-12",
+    "data_zgloszenia": "2026-05-14",
+    "miejsce": {
+      "ulica": "ul. Logistyczna 1",
+      "kod": "05-080",
+      "miasto": "Izabelin"
+    },
+    "przyczyna": "Huragan zerwał część dachu magazynu",
+    "rodzaj_mienia": "budynek",
+    "szacowana_kwota": 210000,
+    "zalaczniki": [
+      "zdjęcia dachu",
+      "kosztorys naprawy"
+    ],
+    "okolicznosci": "Wiatr podczas nawałnicy zerwał pokrycie dachu nad częścią magazynu wysokiego składowania."
+  },
+  "podejrzane": false,
+  "decyzja_llm": null,
+  "decyzja": "ODMOWA",
+  "kody_polisy": [
+    "S02"
+  ],
+  "paragrafy_oczekiwane": [],
+  "brakujace_dokumenty": [],
+  "zapytanie_dodatkowe": null,
+  "uwagi_dla_ewaluacji": "Polisa wygasła 2026-02-28, zdarzenie 2026-05-12 (S02) - odmowa formalna bez oceny OWU.",
+  "zdjecie": {
+    "rodzaj_zdarzenia": "huragan_wiatr",
+    "dlugotrwalosc": "NAGLE"
+  }
+}

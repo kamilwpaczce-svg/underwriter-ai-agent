@@ -1,0 +1,58 @@
+name: Model ryzyka (Azure ML)
+
+# Etap 15+: CI/CD modelu. Testy offline -> pipeline Azure ML (przygotuj -> trenuj ->
+# ewaluuj -> zarejestruj) -> bramka champion/challenger -> rejestr. Logowanie OIDC jak
+# w ci-cd.yml (ten sam federated credential, subject refs/heads/main).
+# Wymaga roli "AzureML Data Scientist" dla tozsamosci OIDC na workspace uw-demo-mlw
+# (infra/README.md, sekcja "Etap 15+"). Na razie tylko recznie (workflow_dispatch):
+# kazdy bieg to platne minuty serverless, a wyzwalacz push na pipeline_ml/** wlaczyc
+# dopiero po pierwszym zielonym biegu.
+on:
+  workflow_dispatch:
+    inputs:
+      rodzaj:
+        description: "hgb (model docelowy) | logreg (baseline) | zepsuty (test odrzucenia przez bramke)"
+        type: choice
+        options: [hgb, logreg, zepsuty]
+        default: hgb
+
+# Odczyt championa i zapis tagu w rejestrze to nie transakcja - nigdy dwa biegi naraz.
+concurrency:
+  group: model-ryzyka
+  cancel-in-progress: false
+
+jobs:
+  testy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - run: pip install -r requirements.txt
+      - name: Testy offline modelu i komponentow pipeline'u
+        run: pytest -q -m "not azure" tests/test_ryzyko_*.py tests/test_pipeline_ml_*.py
+
+  pipeline:
+    needs: testy
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - run: pip install -r requirements-mlops.txt
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      # Kod wyjscia 0 takze przy odrzuceniu challengera (poprawny wynik bramki);
+      # 1 tylko przy awarii kroku albo braku rejestracja.json. Wynik -> podsumowanie joba.
+      - name: Pipeline Azure ML i bramka
+        run: python -X utf8 pipeline_ml/uruchom.py --rodzaj ${{ inputs.rodzaj }}

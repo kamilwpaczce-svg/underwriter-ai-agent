@@ -1,0 +1,35 @@
+{
+  "id": "W06",
+  "typ_dokumentu": "WNIOSEK",
+  "pola": {
+    "nazwa_firmy": "Tartak Borowik Sp. z o.o.",
+    "nip": null,
+    "adres": {
+      "ulica": "ul. Tartaczna 4",
+      "kod": "18-400",
+      "miasto": "Łomża"
+    },
+    "pkd": "16.10.Z",
+    "branza": "Produkcja wyrobów tartacznych",
+    "rodzaj_konstrukcji": "drewniana",
+    "rok_budowy": 1938,
+    "su_budynki": 600000,
+    "su_maszyny": 200000,
+    "su_zapasy": 100000,
+    "tryskacze": false,
+    "ssp": false,
+    "strefa_powodziowa": false,
+    "szkody_3_lata": [],
+    "okres_od": "2026-11-01",
+    "okres_do": "2027-10-31",
+    "data_wniosku": "2026-09-28",
+    "broker": "Broker Partner Mazowsze",
+    "uwagi": null
+  },
+  "decyzja": "ODMOWA",
+  "reguly": [
+    "R02",
+    "R06"
+  ],
+  "uwagi_dla_ewaluacji": "Budynek drewniany z 1938 r. (R06 - ODMOWA) i brak NIP w formularzu (R02); ODMOWA wygrywa z priorytetem."
+}

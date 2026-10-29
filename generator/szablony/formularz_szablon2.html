@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Wniosek o ubezpieczenie mienia</title>
+<style>
+  body { font-family: "Georgia", "Times New Roman", serif; font-size: 13px; color: #262626; margin: 0; }
+  .pasek { background: #7a1f2b; color: #fff; padding: 18px 34px; }
+  .pasek .tytul { font-size: 19px; font-weight: bold; letter-spacing: 0.5px; }
+  .pasek .podtytul { font-size: 13px; margin-top: 3px; }
+  .tresc { padding: 24px 34px; }
+  .pasek-meta { font-size: 12px; color: #555; margin-bottom: 18px; border-bottom: 1px dashed #999; padding-bottom: 8px; }
+  h2.paragraf { font-size: 14px; color: #7a1f2b; border-bottom: 2px solid #7a1f2b; padding-bottom: 3px; margin: 20px 0 8px 0; }
+  dl.pola { margin: 0; }
+  dl.pola dt { font-weight: bold; float: left; width: 230px; clear: left; padding: 3px 0; }
+  dl.pola dd { margin-left: 240px; padding: 3px 0; }
+  table.szkody { width: 100%; border-collapse: collapse; margin-top: 6px; }
+  table.szkody th, table.szkody td { border: 1px solid #bbb; padding: 4px 8px; font-size: 12px; text-align: left; }
+  table.szkody th { background: #f3e3e5; }
+  .uwagi-tresc { border-left: 3px solid #7a1f2b; padding: 6px 10px; margin-top: 4px; white-space: pre-wrap; background: #faf6f6; }
+  .stopka { margin-top: 30px; font-size: 12px; color: #444; }
+  .stopka .linia { border-top: 1px solid #333; width: 260px; margin-top: 36px; padding-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="pasek">
+    <div class="tytul">Mazowiecka Mutual TU S.A.</div>
+    <div class="podtytul">Formularz zgłoszenia ryzyka — ubezpieczenie mienia od ognia i innych zdarzeń losowych</div>
+  </div>
+  <div class="tresc">
+    <div class="pasek-meta">Zgłoszenie nr $numer_wniosku &nbsp;•&nbsp; data zgłoszenia: $data_wniosku_tekst &nbsp;•&nbsp; broker: $broker</div>
+
+    <h2 class="paragraf">§1 Ubezpieczający i lokalizacja</h2>
+    <dl class="pola">
+      <dt>Nazwa firmy</dt><dd>$nazwa_firmy</dd>
+      <dt>NIP</dt><dd>$nip_tekst</dd>
+      <dt>Adres lokalizacji</dt><dd>$ulica, $kod $miasto</dd>
+      <dt>PKD</dt><dd>$pkd ($branza)</dd>
+    </dl>
+
+    <h2 class="paragraf">§2 Konstrukcja i zabezpieczenia przeciwpożarowe</h2>
+    <dl class="pola">
+      <dt>Rodzaj konstrukcji</dt><dd>$konstrukcja_tekst</dd>
+      <dt>Rok budowy</dt><dd>$rok_budowy</dd>
+      <dt>Tryskacze</dt><dd>$tryskacze_tekst</dd>
+      <dt>SSP (sygnalizacja pożaru)</dt><dd>$ssp_tekst</dd>
+      <dt>Strefa zagrożenia powodzią</dt><dd>$strefa_powodziowa_tekst</dd>
+    </dl>
+
+    <h2 class="paragraf">§3 Sumy ubezpieczenia</h2>
+    <dl class="pola">
+      <dt>Budynki i budowle</dt><dd>$su_budynki_tekst</dd>
+      <dt>Maszyny i urządzenia</dt><dd>$su_maszyny_tekst</dd>
+      <dt>Zapasy</dt><dd>$su_zapasy_tekst</dd>
+    </dl>
+
+    <h2 class="paragraf">§4 Szkodowość — ostatnie 3 lata</h2>
+    $szkody_html
+
+    <h2 class="paragraf">§5 Okres ochrony</h2>
+    <dl class="pola">
+      <dt>Od</dt><dd>$okres_od_tekst</dd>
+      <dt>Do</dt><dd>$okres_do_tekst</dd>
+    </dl>
+
+    <h2 class="paragraf">§6 Uwagi brokera</h2>
+    <div class="uwagi-tresc">$uwagi</div>
+
+    <div class="stopka">
+      Zgłaszający broker: $broker
+      <div class="linia">podpis brokera</div>
+    </div>
+  </div>
+</body>
+</html>

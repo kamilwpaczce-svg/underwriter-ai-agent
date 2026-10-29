@@ -1,0 +1,49 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+ewaluacja/wyniki/*
+!ewaluacja/wyniki/.gitkeep
+
+# Etap 3
+.env*
+!.env.example
+!frontend/.env.example
+
+# Etap 5 - cache OCR na dysku (SHA-256 bajtow wejsciowych), nie sekret, ale nie do repo
+.cache_ocr/
+
+# Etap 6 - frontend (Next.js/Node) i artefakty Bicepa/Playwrighta
+frontend/node_modules/
+frontend/.next/
+frontend/test-results/
+frontend/playwright-report/
+infra/*.json
+
+# Etap 8 - sledzenie MLflow, backend lokalny SQLite + artefakty
+mlruns.db
+mlruns/
+mlartifacts/
+# mlflow.db - zaobserwowany niezaleznie od MLFLOW_TRACKING_URI (wewnetrzny plik pakietu
+# mlflow, nie tworzony przez kod tego repo) - ignorowany na wszelki wypadek.
+mlflow.db
+
+.venv-ewaluacja/
+
+# Etap 12 - Qdrant (RAG po OWU): kolekcja embedded na dysku, cache embeddingow
+.qdrant_lokalny/
+.cache_embeddingow/
+
+# Etap 13 - Terraform: stan i zmienne lokalne nigdy do repo; .terraform.lock.hcl TAK
+# (pin wersji providera, musi byc commitowany).
+infra/terraform/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfplan
+.venv-mlops/
+
+# Demo 7 - LlamaIndex (osobne srodowisko)
+.venv-llamaindex/
+# Demo 7 - kopia cache embeddingow Etapu 12 dla li-wektor (2,3 MB; zrodlo: worktree underwriter_agent_demo_qdrant)
+.cache_embeddingow_demo7/

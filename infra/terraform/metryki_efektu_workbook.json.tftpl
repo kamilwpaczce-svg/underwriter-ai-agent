@@ -1,0 +1,65 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "## Metryki efektu rozwiazania (Etap 19c)\nZrodlo: telemetria spanow `wniosek.*` i `llm.*` w Log Analytics (bez Postgresa). Kazdy wniosek trafia do czlowieka, wiec metryka wyjatkow to odsetek rekomendacji `SKIEROWANIE`, nie 'odsetek do czlowieka'. Wybierz role ponizej, zeby odfiltrowac ruch testowy."
+      },
+      "name": "opis"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "parameters": [
+          {
+            "id": "7c1f3b0a-5e7d-4c11-9a52-0d3a6b1e2f01",
+            "version": "KqlParameterItem/1.0",
+            "name": "Rola",
+            "label": "Rola (cloud_RoleName)",
+            "type": 2,
+            "isRequired": true,
+            "multiSelect": true,
+            "quote": "\"",
+            "delimiter": ",",
+            "query": "AppDependencies | summarize by AppRoleName | where AppRoleName startswith 'uw-' | order by AppRoleName asc | project value = AppRoleName, label = AppRoleName",
+            "value": ["uw-api", "uw-zasiew"],
+            "typeSettings": {
+              "additionalResourceOptions": [],
+              "showDefault": false
+            },
+            "timeContext": {
+              "durationMs": 2592000000
+            },
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces",
+            "crossComponentResources": ["${workspace_id}"]
+          }
+        ],
+        "style": "pills",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "name": "parametry"
+    }%{ for i, zapytanie in zapytania },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": ${jsonencode(zapytanie)},
+        "size": 4,
+        "title": ${jsonencode(tytuly[i])},
+        "timeContext": {
+          "durationMs": 2592000000
+        },
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": ["${workspace_id}"],
+        "visualization": "table"
+      },
+      "name": "metryka-${i + 1}"
+    }%{ endfor }
+  ],
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}

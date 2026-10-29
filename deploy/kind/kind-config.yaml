@@ -1,0 +1,19 @@
+# Klaster kind na 1 wezle (SPEC_ETAP9.md pkt 2) do lokalnych testow chartu Helm.
+#
+# disableDefaultCNI + podSubnet 192.168.0.0/16: domyslny CNI kind (kindnet) NIE
+# egzekwuje NetworkPolicy w ogole - zasoby istnialyby w API serwera, ale ruch nie
+# bylby faktycznie blokowany (sprawdzone, patrz docs/ROZWOJ.md, Etap 9). uruchom.sh
+# instaluje w zamian Calico (CNI, ktory NetworkPolicy faktycznie egzekwuje) - Calico
+# oczekuje tej konkretnej puli adresow w swoim domyslnym manifescie.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+networking:
+  disableDefaultCNI: true
+  podSubnet: "192.168.0.0/16"
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      # Service frontendu (NodePort 30080, patrz values.yaml) -> host :8080.
+      - containerPort: 30080
+        hostPort: 8080
+        protocol: TCP

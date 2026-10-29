@@ -1,0 +1,37 @@
+{
+  "id": "Z09",
+  "typ_dokumentu": "SZKODA",
+  "pola": {
+    "nr_polisy": "PL/MSP/2026/0999",
+    "ubezpieczony": "Biuro Rachunkowe Saldo sp. z o.o.",
+    "nip": "5213011119",
+    "data_zdarzenia": "2026-08-01",
+    "data_zgloszenia": "2026-08-03",
+    "miejsce": {
+      "ulica": "ul. Biurowa 5",
+      "kod": "00-950",
+      "miasto": "Warszawa"
+    },
+    "przyczyna": "Zalanie biura wodą z pękniętej rury grzewczej",
+    "rodzaj_mienia": "budynek",
+    "szacowana_kwota": 50000,
+    "zalaczniki": [
+      "zdjęcia zalanego biura"
+    ],
+    "okolicznosci": "Rura grzewcza pękła w nocy, woda zalała podłogi i ściany dwóch pokoi biurowych."
+  },
+  "podejrzane": false,
+  "decyzja_llm": null,
+  "decyzja": "SKIEROWANIE",
+  "kody_polisy": [
+    "S01"
+  ],
+  "paragrafy_oczekiwane": [],
+  "brakujace_dokumenty": [],
+  "zapytanie_dodatkowe": null,
+  "uwagi_dla_ewaluacji": "Numer polisy nieznany w rejestrze (S01) - do likwidatora bez oceny pokrycia.",
+  "zdjecie": {
+    "rodzaj_zdarzenia": "zalanie",
+    "dlugotrwalosc": "NAGLE"
+  }
+}

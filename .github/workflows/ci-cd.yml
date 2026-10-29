@@ -1,0 +1,211 @@
+name: CI/CD
+
+# Etap 6 - zero sekretow poza OIDC (Azure login przez federated credential, bez
+# client secret). Identyfikatory (nie sekrety) jako zmienne repo "vars" - patrz
+# infra/README.md, krok f ("gh variable set").
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  testy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Zaleznosci Pythona
+        run: pip install -r requirements.txt
+
+      # Etap 9: helm w jobie testow, zeby tests/test_helm.py (helm template) sie
+      # WYKONAL, a nie pominal - kilka sekund, a lapie bledy chartu przed deployem.
+      - name: Helm (dla tests/test_helm.py)
+        uses: azure/setup-helm@v4
+        with:
+          version: v4.3.0
+
+      - name: Pytest (bez markera azure - bez wywolan platnych API, bez sieci)
+        run: pytest -q -m "not azure"
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Zaleznosci frontendu
+        working-directory: frontend
+        run: npm ci
+
+      - name: Lint frontendu
+        working-directory: frontend
+        run: npm run lint
+
+      - name: Testy jednostkowe frontendu (Vitest)
+        working-directory: frontend
+        run: npx vitest run
+
+      - name: Build frontendu
+        working-directory: frontend
+        run: npm run build
+
+  # Etap 9: caly chart Helm na klastrze kind + test dymny (deploy/kind/). Rownolegle do
+  # "testy", NIE jest w "needs" joba "wdrozenie" - awaria tu nie blokuje deployu na
+  # Azure (Container Apps nie uzywa tego chartu), ale jest widoczna jako czerwony job.
+  k8s:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v4.3.0
+
+      # install_only: klaster tworzy uruchom.sh z deploy/kind/kind-config.yaml
+      # (bez domyslnego CNI, pod Calico) - akcja ma tylko dostarczyc binarke kind.
+      - name: kind
+        uses: helm/kind-action@v1
+        with:
+          version: v0.33.0
+          install_only: true
+
+      - name: Helm lint
+        run: helm lint deploy/helm/underwriter
+
+      - name: Uruchomienie na kind (budowa obrazow, Calico, helm upgrade --install)
+        run: bash deploy/kind/uruchom.sh
+
+      - name: Test dymny (a-e, w tym NetworkPolicy w obu stanach)
+        run: bash deploy/kind/test_dymny.sh
+
+      - name: Diagnostyka po awarii
+        if: failure()
+        run: |
+          kubectl --context kind-underwriter get pods,jobs -A -o wide || true
+          kubectl --context kind-underwriter get events --sort-by=.lastTimestamp | tail -40 || true
+
+  # Etap 13: tylko walidacja statyczna (fmt/init bez backendu/validate) - bez poswiadczen
+  # Azure, bez backendu, zero zasobow tworzonych. plan/apply robi właściciel recznie
+  # (infra/terraform/README.md). Rownolegle do "testy", nie blokuje "wdrozenie".
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/terraform
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+
+      - name: terraform fmt -check
+        run: terraform fmt -check
+
+      - name: terraform init (bez backendu)
+        run: terraform init -backend=false
+
+      - name: terraform validate
+        run: terraform validate
+
+  wdrozenie:
+    needs: testy
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      # OIDC - federated credential aplikacji Entra (infra/README.md, krok e).
+      # Zero client secret, zero przechowywanego tokenu.
+      - name: Logowanie do Azure (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Logowanie do ACR (przez tozsamosc z kroku wyzej, bez hasla admina)
+        run: az acr login --name ${{ vars.ACR_NAME }}
+
+      - name: Budowanie i push obrazu API (na runnerze - bez ACR Tasks)
+        run: |
+          docker build -t ${{ vars.ACR_NAME }}.azurecr.io/uw-api:${{ github.sha }} .
+          docker push ${{ vars.ACR_NAME }}.azurecr.io/uw-api:${{ github.sha }}
+
+      - name: Budowanie i push obrazu frontendu (na runnerze - bez ACR Tasks)
+        run: |
+          docker build -t ${{ vars.ACR_NAME }}.azurecr.io/uw-web:${{ github.sha }} ./frontend
+          docker push ${{ vars.ACR_NAME }}.azurecr.io/uw-web:${{ github.sha }}
+
+      - name: Aktualizacja Container App API
+        run: |
+          az containerapp update \
+            --name ${{ vars.CONTAINER_APP_API }} \
+            --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
+            --image ${{ vars.ACR_NAME }}.azurecr.io/uw-api:${{ github.sha }}
+
+      # API ma ingress wewnetrzny - z runnera nie da sie zawolac /zdrowie. Zamiast
+      # tego czekamy, az nowa rewizja bedzie gotowa (probe przeszla). Gdy migracje
+      # przy starcie padna (start_api.sh, set -e -> exit 1), rewizja nigdy nie
+      # zostanie "ready" i wdrozenie konczy sie bledem zamiast cichym zielonym.
+      - name: Czekanie na gotowa rewizje API
+        run: |
+          for i in $(seq 1 30); do
+            NAJNOWSZA=$(az containerapp show --name ${{ vars.CONTAINER_APP_API }} \
+              --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
+              --query properties.latestRevisionName -o tsv)
+            GOTOWA=$(az containerapp show --name ${{ vars.CONTAINER_APP_API }} \
+              --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
+              --query properties.latestReadyRevisionName -o tsv)
+            echo "Proba ${i}: najnowsza=${NAJNOWSZA} gotowa=${GOTOWA}"
+            if [ -n "${NAJNOWSZA}" ] && [ "${NAJNOWSZA}" = "${GOTOWA}" ]; then
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "Rewizja ${NAJNOWSZA} nie stala sie gotowa w 5 min - sprawdz logi: az containerapp logs show -n ${{ vars.CONTAINER_APP_API }} -g ${{ vars.AZURE_RESOURCE_GROUP }}"
+          exit 1
+
+      - name: Aktualizacja Container App frontend
+        run: |
+          az containerapp update \
+            --name ${{ vars.CONTAINER_APP_WEB }} \
+            --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
+            --image ${{ vars.ACR_NAME }}.azurecr.io/uw-web:${{ github.sha }}
+
+      # Oczekujemy 302 (Easy Auth przekierowuje do logowania) albo 401 - NIE 200.
+      # 200 oznaczaloby, ze strona jest publicznie dostepna bez logowania -
+      # regresja konfiguracji Easy Auth, zatrzymuje wdrozenie jako blad.
+      - name: Test dymny - uw-web NIE moze byc publicznie dostepne bez logowania
+        run: |
+          FQDN=$(az containerapp show \
+            --name ${{ vars.CONTAINER_APP_WEB }} \
+            --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
+            --query properties.configuration.ingress.fqdn -o tsv)
+          # 5xx/000 = zimny start nowej rewizji (minReplicas 0) - ponawiamy do ~3 min.
+          # 2026-10-11 pierwszy przebieg dostal 504, minute pozniej bylo 401/302.
+          # 200 albo inny kod 2xx/4xx przerywa od razu - to nie jest stan przejsciowy.
+          for i in $(seq 1 18); do
+            # "|| true": przy timeoucie curl wypisuje 000, ale konczy sie kodem 28, a krok dziala pod
+            # bash -e - bez tego pierwszy timeout zimnego startu ubijal krok przed ponowieniem (12.10).
+            STATUS=$(curl -s -m 30 -o /dev/null -w "%{http_code}" "https://${FQDN}/" || true)
+            echo "Proba ${i}: status uw-web ${STATUS}"
+            case "${STATUS}" in
+              000|5*) sleep 10 ;;
+              *) break ;;
+            esac
+          done
+          if [ "${STATUS}" != "302" ] && [ "${STATUS}" != "401" ]; then
+            echo "Oczekiwano 302 albo 401 (Easy Auth), otrzymano ${STATUS}. Przerywam."
+            exit 1
+          fi

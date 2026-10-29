@@ -1,0 +1,32 @@
+{
+  "id": "W11",
+  "typ_dokumentu": "WNIOSEK",
+  "pola": {
+    "nazwa_firmy": "Przetwórnia Spożywcza Smak i Zdrowie Sp. z o.o.",
+    "nip": "1029384750",
+    "adres": {
+      "ulica": "ul. Przetwórcza 11",
+      "kod": "63-400",
+      "miasto": "Ostrów Wielkopolski"
+    },
+    "pkd": "10.39.Z",
+    "branza": "Pozostałe przetwarzanie i konserwowanie owoców i warzyw",
+    "rodzaj_konstrukcji": "niepalna",
+    "rok_budowy": 2001,
+    "su_budynki": 1500000,
+    "su_maszyny": 1200000,
+    "su_zapasy": 500000,
+    "tryskacze": false,
+    "ssp": false,
+    "strefa_powodziowa": false,
+    "szkody_3_lata": [],
+    "okres_od": "2026-12-01",
+    "okres_do": "2027-11-30",
+    "data_wniosku": "2026-10-04",
+    "broker": "Anna Lis, Kancelaria Brokerska Zielona Wieża",
+    "uwagi": null
+  },
+  "decyzja": "AKCEPTACJA",
+  "reguly": [],
+  "uwagi_dla_ewaluacji": "Treść maila koryguje sumę maszyn z formularza (1,0 mln) na 1,2 mln - oczekiwana wartość to korekta, nie dane z PDF."
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Biuletyn brokerski</title>
+<style>
+  body { font-family: "Arial", sans-serif; font-size: 13px; color: #1a1a1a; margin: 30px; }
+  .naglowek { background: #2c3e50; color: white; padding: 16px 20px; }
+  .naglowek .tytul { font-size: 20px; font-weight: bold; }
+  .naglowek .data { font-size: 12px; margin-top: 4px; }
+  .tresc { margin-top: 18px; }
+  .tresc p { line-height: 1.5; }
+  .tresc h3 { color: #2c3e50; margin-top: 20px; }
+  .stopka { margin-top: 30px; font-size: 11px; color: #777; border-top: 1px solid #ccc; padding-top: 8px; }
+</style>
+</head>
+<body>
+  <div class="naglowek">
+    <div class="tytul">Biuletyn brokerski — $tytul</div>
+    <div class="data">$data_tekst</div>
+  </div>
+  <div class="tresc">
+    $tresc_html
+  </div>
+  <div class="stopka">
+    Biuletyn ma charakter wyłącznie informacyjny i nie stanowi wniosku o ubezpieczenie.
+    $nadawca
+  </div>
+</body>
+</html>

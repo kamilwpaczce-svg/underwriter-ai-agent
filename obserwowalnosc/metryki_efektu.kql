@@ -1,0 +1,117 @@
+// Etap 19c - metryki efektu rozwiazania (underwriter). Zrodlo: sama telemetria, bez Postgresa.
+//
+// UWAGA: zapytania dla Logs workspace'u Log Analytics (uw-demo-logs), nie dla Logs zasobu
+// App Insights. Tam obowiazuje stary schemat (dependencies, customDimensions, operation_Id).
+//
+// Potwierdzone na danych z 21-24.10 (zapytanie odczytu 26.10):
+//  - spany wewnetrzne (SpanKind.INTERNAL: wniosek.*, wezel.*, llm.*) leza w AppDependencies
+//    z DependencyType = "InProc"; AppRequests ma tylko spany serwera HTTP;
+//  - atrybuty spanu sa w kolumnie Properties (dynamic), klucze z kropkami: Properties["uw.blad"];
+//  - wartosci sa STRINGAMI: bool jako "True", liczby jako "1300" (stad toint i =~ "True");
+//  - pusty string w atrybucie nie tworzy klucza (uw.decyzja = "" -> brak klucza);
+//  - uw.blad istnieje tylko gdy True; uw.odejscie_od_rekomendacji tylko na wniosek.wznow.
+// NIEpotwierdzone danymi: wniosek.wznow z nowymi atrybutami (kod z 19c nie jest jeszcze wdrozony
+// na uw-api, w workspace nie ma ani jednego wniosek.wznow).
+//
+// Zapytania 1-5 = pieciu metryk, 6 = zapytanie alertu jakosci (odsetek odejsc).
+// Ruch testowy (uw-test-alarmu) jest wykluczony przez `role`; zasiew 19c idzie jako uw-zasiew.
+// `uruchom` i `wznow` to DWA rozne trace'y (operation_Id sie nie zgadza), laczy je uw.wniosek_id.
+
+
+// === 1. Koszt LLM na wniosek (srednia, p95) ===
+// Cennik gpt-5-mini w USD za 1M tokenow - ORIENTACYJNY, do weryfikacji (patrz ewaluacja/uruchom.py,
+// CENA_GPT5_MINI_*). Test tests/test_metryki_efektu_kql.py pilnuje, ze wartosci sa te same.
+let cena_we_usd_na_milion = 0.25;  // orientacyjny, gpt-5-mini wejscie
+let cena_wy_usd_na_milion = 2.00;  // orientacyjny, gpt-5-mini wyjscie
+let okno = 30d;
+let role = dynamic(["uw-api", "uw-zasiew"]);
+let wnioski = AppDependencies
+    | where TimeGenerated > ago(okno)
+    | where Name == "wniosek.uruchom" and AppRoleName in (role)
+    | project OperationId, wniosekId = tostring(Properties["uw.wniosek_id"]);
+AppDependencies
+| where TimeGenerated > ago(okno)
+| where Name startswith "llm." and AppRoleName in (role)
+| summarize tokeny_we = sum(toint(Properties["gen_ai.usage.input_tokens"])),
+            tokeny_wy = sum(toint(Properties["gen_ai.usage.output_tokens"])) by OperationId
+| join kind=inner wnioski on OperationId
+| extend koszt_usd = (tokeny_we / 1000000.0) * cena_we_usd_na_milion + (tokeny_wy / 1000000.0) * cena_wy_usd_na_milion
+| summarize wnioski = dcount(wniosekId), koszt_sr_usd = round(avg(koszt_usd), 5),
+            koszt_p95_usd = round(percentile(koszt_usd, 95), 5), koszt_suma_usd = round(sum(koszt_usd), 4)
+
+
+// === 2. Odsetek rekomendacji SKIEROWANIE (sprawy niestandardowe) ===
+// Nie "odsetek do czlowieka": kazdy wniosek trafia do czlowieka (interrupt), to byloby zawsze 100%.
+// Od poprawki 19c `_opisz_wynik` (api/agent_serwis.py) uw.decyzja jest ustawiane tez dla SZKODA:
+// bierze decyzje po regulach z payloadu interruptu (ta sama, ktora trasy.py liczy jako rekomendacje).
+// Wnioski uruchomione PRZED tym wdrozeniem (np. dane z 21-24.10) maja dla szkod puste uw.decyzja.
+// NIE_DOTYCZY to nie decyzja ubezpieczeniowa. Dwie kolumny: odsetek wsrod wnioskow Z decyzja i
+// wsrod wszystkich; `bez_decyzji` = NIE_DOTYCZY, wnioski z bledem agenta oraz stary kod (bez poprawki).
+let okno = 30d;
+let role = dynamic(["uw-api", "uw-zasiew"]);
+AppDependencies
+| where TimeGenerated > ago(okno)
+| where Name == "wniosek.uruchom" and AppRoleName in (role)
+| extend decyzja = tostring(Properties["uw.decyzja"])
+| summarize wnioski = count(),
+            z_decyzja = countif(decyzja !in ("", "NIE_DOTYCZY")),
+            skierowanie = countif(decyzja == "SKIEROWANIE")
+| extend bez_decyzji = wnioski - z_decyzja,
+         odsetek_skierowanie_z_decyzja_pct = round(100.0 * skierowanie / z_decyzja, 1),
+         odsetek_skierowanie_wszystkich_pct = round(100.0 * skierowanie / wnioski, 1)
+
+
+// === 3. Odsetek odejsc czlowieka od rekomendacji ===
+// Atrybut powstaje tylko na wniosek.wznow, gdy trasa przekazala `odejscie` (wtedy jest "True"/"False").
+// Brak atrybutu (stary kod) nie jest liczony jako zgodnosc - wiersz jest odrzucany.
+let okno = 30d;
+let role = dynamic(["uw-api", "uw-zasiew"]);
+AppDependencies
+| where TimeGenerated > ago(okno)
+| where Name == "wniosek.wznow" and AppRoleName in (role)
+| extend odejscie = tostring(Properties["uw.odejscie_od_rekomendacji"])
+| where isnotempty(odejscie)
+| summarize decyzje = count(), odejscia = countif(odejscie =~ "True")
+| extend odsetek_odejsc_pct = round(100.0 * odejscia / decyzje, 1)
+
+
+// === 4. Odsetek wnioskow z bledem agenta ===
+// Blad = uw.blad (blad wezla grafu albo brak decyzji koncowej) LUB Success == false
+// (wyjatek w uruchom_nowy: tam uw.blad nie jest ustawiany, a w bazie wniosek dostaje status BLAD).
+let okno = 30d;
+let role = dynamic(["uw-api", "uw-zasiew"]);
+AppDependencies
+| where TimeGenerated > ago(okno)
+| where Name == "wniosek.uruchom" and AppRoleName in (role)
+| extend z_uw_blad = tostring(Properties["uw.blad"]) =~ "True"
+| summarize wnioski = count(), z_uw_blad = countif(z_uw_blad), z_wyjatkiem = countif(Success == false),
+            blad_lacznie = countif(z_uw_blad or Success == false)
+| extend odsetek_bledow_pct = round(100.0 * blad_lacznie / wnioski, 1)
+
+
+// === 5. Czas przebiegu agenta - p95 ===
+// DurationMs spanu wniosek.uruchom = caly przebieg grafu do interruptu (bez czekania na czlowieka).
+let okno = 30d;
+let role = dynamic(["uw-api", "uw-zasiew"]);
+AppDependencies
+| where TimeGenerated > ago(okno)
+| where Name == "wniosek.uruchom" and AppRoleName in (role)
+| summarize wnioski = count(), p50_ms = percentile(DurationMs, 50), p95_ms = percentile(DurationMs, 95)
+
+
+// === 6. Alert jakosci - odsetek odejsc > 50% w 24 h przy min. 5 decyzjach ===
+// Alert JAKOSCI, nie awarii: model dziala technicznie, ale ludzie przestaja mu ufac (dryf).
+// Zwraca wiersz tylko, gdy warunek spelniony; regula alertu liczy wiersze (Count > 0).
+// Okno, prog i minimum sa wstepne - przed wdrozeniem przejsc skill nadzor-automatu.
+let okno = 24h;
+let min_decyzji = 5;
+let prog_odejsc_pct = 50.0;
+let role = dynamic(["uw-api", "uw-zasiew"]);
+AppDependencies
+| where TimeGenerated > ago(okno)
+| where Name == "wniosek.wznow" and AppRoleName in (role)
+| extend odejscie = tostring(Properties["uw.odejscie_od_rekomendacji"])
+| where isnotempty(odejscie)
+| summarize decyzje = count(), odejscia = countif(odejscie =~ "True")
+| extend odsetek_odejsc_pct = round(100.0 * odejscia / decyzje, 1)
+| where decyzje >= min_decyzji and odsetek_odejsc_pct > prog_odejsc_pct

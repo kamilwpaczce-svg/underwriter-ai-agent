@@ -1,0 +1,39 @@
+{
+  "id": "Z01",
+  "typ_dokumentu": "SZKODA",
+  "pola": {
+    "nr_polisy": "PL/MSP/2026/0001",
+    "ubezpieczony": "Piekarnia Złote Kłosy sp. z o.o.",
+    "nip": "5213011102",
+    "data_zdarzenia": "2026-09-03",
+    "data_zgloszenia": "2026-09-05",
+    "miejsce": {
+      "ulica": "ul. Młynarska 12",
+      "kod": "05-800",
+      "miasto": "Pruszków"
+    },
+    "przyczyna": "Pożar hali produkcyjnej piekarni wywołany zwarciem instalacji elektrycznej przy piecu",
+    "rodzaj_mienia": "budynek",
+    "szacowana_kwota": 380000,
+    "zalaczniki": [
+      "zaświadczenie straży pożarnej",
+      "zdjęcia hali",
+      "kosztorys naprawy"
+    ],
+    "okolicznosci": "Ogień objął dach i ściany hali, akcję gaśniczą prowadziła straż pożarna."
+  },
+  "podejrzane": false,
+  "decyzja_llm": "POKRYTA",
+  "decyzja": "POKRYTA",
+  "kody_polisy": [],
+  "paragrafy_oczekiwane": [
+    "§4 ust. 1"
+  ],
+  "brakujace_dokumenty": [],
+  "zapytanie_dodatkowe": null,
+  "uwagi_dla_ewaluacji": "Pożar - zdarzenie objęte zakresem, komplet dokumentów.",
+  "zdjecie": {
+    "rodzaj_zdarzenia": "pozar",
+    "dlugotrwalosc": "NAGLE"
+  }
+}
